@@ -73,17 +73,17 @@ body {
 
 /* ! Task container */
 .tasks-container {
-  background-color: wheat;
-  padding: 2rem 40px;
-  grid-column: 2/3;
-  grid-row: 1/3;
+  padding: 1rem 40px 0 40px;
+  display: grid;
+  grid-template-rows: 8% 92%;
   height: 100vh;
 }
 
+/* Header */
 header {
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: center;
 }
 
 #project-name {
@@ -104,19 +104,22 @@ header {
   background-color: transparent;
 }
 
+/* Tasks section */
 #tasks {
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  content: ' ';
+  overflow: auto;
+  padding: 1.5rem 0;
+}
+
+#uncompleted-tasks-list,
+#completed-tasks-list {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  content: ' ';
-  height: 95%;
-  overflow: auto;
-  padding: 3rem 0 2rem 0;
-}
-
-#github {
-  display: flex;
-  justify-content: end;
 }
 
 .task-item {
@@ -132,14 +135,14 @@ header {
   border-radius: var(--radius);
 }
 
+.drag {
+  cursor: grab;
+}
+
 .task-title {
   display: flex;
   gap: 10px;
   align-items: center;
-}
-
-.drag {
-  cursor: grab;
 }
 
 .actions {
@@ -153,10 +156,6 @@ header {
 .notes,
 .undo {
   cursor: pointer;
-}
-
-.completed {
-  text-decoration: line-through;
 }
 
 .note-content {
@@ -177,4 +176,44 @@ header {
 
 .selected-date {
   font-weight: 700;
+}
+
+#completed-title {
+  display: flex;
+  align-items: center;
+}
+
+/* Completed task. */
+.completed-task {
+  opacity: 0.7;
+}
+
+.completed-task:hover {
+  opacity: 1;
+}
+
+.completed-task p {
+  text-decoration: line-through;
+}
+
+.completed-task > * {
+  border: none;
+}
+
+.hide {
+  display: none;
+}
+
+/* Github */
+#github {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+  display: flex;
+  justify-content: end;
+}
+
+img {
+  width: 25px;
+  height: 25px;
 }
