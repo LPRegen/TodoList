@@ -2,7 +2,7 @@
 
 import subDays from 'date-fns/subDays';
 import parseISO from 'date-fns/parseISO';
-import { formatISO } from 'date-fns';
+import { formatISO, differenceInDays } from 'date-fns';
 
 class Project {
   static #counter = 0;
@@ -11,7 +11,6 @@ class Project {
     this.name = name;
     this.creationDate = formatISO(new Date(), { representation: 'date' });
     this.dueDate = dueDate;
-    this.isCompleted = false;
     this.id = Project.#counter++;
     this.tasks = [];
   }
@@ -29,6 +28,17 @@ class Task extends Project {
 
   storeNote() {
     this.parentProject.tasks.push(this);
+  }
+
+  hasExpired() {
+    if (
+      differenceInDays(parseISO(this.dueDate), parseISO(this.creationDate)) <=
+      -1
+    ) {
+      console.log('has expired');
+    } else {
+      console.log('still available');
+    }
   }
 }
 
