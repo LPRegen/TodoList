@@ -2,7 +2,7 @@
 
 import subDays from 'date-fns/subDays';
 import parseISO from 'date-fns/parseISO';
-import { formatISO } from 'date-fns/formatISO';
+import { formatISO } from 'date-fns';
 
 class Project {
   static #counter = 0;
@@ -25,6 +25,10 @@ class Task extends Project {
     this.id = Task.#counter++;
     this.note = note;
     this.parentProject = parentProject;
+  }
+
+  storeNote() {
+    this.parentProject.tasks.push(this);
   }
 }
 
