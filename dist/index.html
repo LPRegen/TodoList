@@ -18,7 +18,7 @@
         <h2>Projects</h2>
         <div class="projects">
           <p>First project</p>
-          <!-- <span class="material-icons-outlined"> more_vert </span> -->
+          <!-- <span class="material-icons-outlined">o more_vert </span> -->
         </div>
       </div>
       <div class="new-project">
@@ -40,13 +40,28 @@
         <div id="completed-tasks-list">
           <div id="completed-title">
             <h2>Completed</h2>
-            <span class="material-icons-outlined"> expand_more </span>
+            <span class="material-icons-outlined expand"> expand_more </span>
           </div>
         </div>
         <div id="github">
           <a href="https://github.com/LPRegen" target="_blank"
             ><img src="./GitHub-Mark-Light-32px.png" alt="Github Icon"
           /></a>
+        </div>
+        <div class="modal">
+          <div class="modal-content">
+            <h3>Project name</h3>
+            <input
+              type="text"
+              name="project-name"
+              id="input-name"
+              placeholder="Project name"
+            />
+            <div class="btn-container">
+              <button type="submit" id="submit-project">Save</button>
+              <button id="cancel-project">Cancel</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
