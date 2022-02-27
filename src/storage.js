@@ -1,13 +1,25 @@
 'use strict';
 
-let storedProjects = {};
+const Storage = (function checkStorage() {
+  let _storedProjects = [];
 
-(function checkStorage() {
-  if (localStorage.getItem('projects')) {
-    storedProjects = JSON.parse(localStorage.getItem('projects'));
-  } else {
-    localStorage.setItem('projects', JSON.stringify(storedProjects));
-  }
+  (function _checkStorage() {
+    if (localStorage.getItem('projects')) {
+      _storedProjects = JSON.parse(localStorage.getItem('projects'));
+    } else {
+      localStorage.setItem('projects', JSON.stringify(_storedProjects));
+    }
+  })();
+
+  const addItem = function (item) {
+    _storedProjects.push(item);
+    localStorage.setItem('projects', JSON.stringify(_storedProjects));
+    console.log('pushed');
+  };
+
+  return {
+    addItem,
+  };
 })();
 
-export { storedProjects };
+export { Storage };
