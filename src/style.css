@@ -108,7 +108,7 @@ header {
 
 /* Tasks section */
 #tasks {
-  background-color: gray;
+  /* background-color: gray; */
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -156,7 +156,8 @@ header {
 .done,
 .delete,
 .notes,
-.undo {
+.undo,
+.expand {
   cursor: pointer;
 }
 
@@ -235,23 +236,28 @@ img {
 }
 
 .modal-content {
-  font-size: clamp(1rem, -0.3889rem + 7.4074vw, 1.5rem);
+  display: block;
   display: flex;
   flex-direction: column;
   gap: 3vh;
   width: 20%;
   height: fit-content;
-  margin: 20% auto;
+  margin: 30vh auto;
   padding: 2rem;
   border-radius: var(--radius);
-  color: wheat;
   background-color: rgb(207, 95, 95);
   box-shadow: 4px 4px 5px black;
 }
 
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vh;
+}
+
 #input-name {
   all: unset;
-  font-size: 18px;
+  font-size: 16px;
   text-align: left;
   border-style: none none solid none;
   border-color: black;
@@ -265,7 +271,7 @@ img {
 
 .btn-container {
   display: flex;
-  gap: 2vw;
+  gap: 20%;
   margin: auto;
 }
 
@@ -273,7 +279,7 @@ img {
 #cancel-project {
   border-style: none;
   border-radius: var(--radius);
-  width: 4vw;
+  width: 7vw;
   padding: 2px;
   cursor: pointer;
   font-weight: 600;
