@@ -5,12 +5,9 @@ import { formatISO, differenceInDays } from 'date-fns';
 import { Storage } from './storage';
 
 class Project {
-  static #counter = 0;
-
   constructor(name) {
     this.name = name;
     this.creationDate = formatISO(new Date(), { representation: 'date' });
-    this.id = Project.#counter++;
     this.uncompleteTasks = [];
     this.completeTask = [];
   }
@@ -28,11 +25,8 @@ class Project {
 }
 
 class Task extends Project {
-  static #counter = 0;
-
   constructor(name, note, parentProject) {
     super(name);
-    this.id = Task.#counter++;
     this.note = note;
     this.parentProject = parentProject;
   }
@@ -43,27 +37,36 @@ class Task extends Project {
 }
 
 const CreateElements = (function () {
+  let _projectCount = 0;
+  const _projectList = document.querySelector('#project-container');
+
+  function _projectHTML(name) {
+    let projectContainer = document.createElement('div');
+    let projectName = document.createElement('p');
+    projectContainer.dataset.projectCount = _projectCount++;
+    projectName.textContent = name;
+    projectContainer.classList.add('projects');
+    projectContainer.append(projectName);
+    _projectList.insertAdjacentElement('beforeend', projectContainer);
+  }
+
+  (function _readStorage() {
+    Storage.showProjects().forEach((project) => {
+      _projectHTML(project.name);
+    });
+  })();
+
   const createProjectInstance = function () {
-    const projectContainer = document.querySelector('#project-container');
     let projectInput = document.createElement('input');
     projectInput.type = 'text';
     projectInput.id = 'project-name';
-    projectContainer.insertAdjacentElement('afterbegin', projectInput);
+    _projectList.insertAdjacentElement('beforeend', projectInput);
     projectInput.focus();
     projectInput.onblur = function () {
       if (projectInput.value !== '' && projectInput.value !== ' ') {
         const project = new Project(projectInput.value);
         Storage.addItem(project);
-
-        const newProjectContainer = document.createElement('div');
-        const projectName = document.createElement('p');
-        projectName.textContent = projectInput.value;
-        newProjectContainer.classList.add('projects');
-        newProjectContainer.append(projectName);
-        projectContainer.insertAdjacentElement(
-          'afterbegin',
-          newProjectContainer
-        );
+        _projectHTML(projectInput.value);
         projectInput.value = '';
       }
       projectInput.remove();
