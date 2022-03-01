@@ -11,7 +11,8 @@ class Project {
     this.name = name;
     this.creationDate = formatISO(new Date(), { representation: 'date' });
     this.id = Project.#counter++;
-    this.tasks = [];
+    this.uncompleteTasks = [];
+    this.completeTask = [];
   }
 
   hasExpired() {
@@ -42,7 +43,7 @@ class Task extends Project {
 }
 
 const CreateElements = (function () {
-  const createHTMLProject = function () {
+  const createProjectInstance = function () {
     const projectContainer = document.querySelector('#project-container');
     let projectInput = document.createElement('input');
     projectInput.type = 'text';
@@ -53,6 +54,16 @@ const CreateElements = (function () {
       if (projectInput.value !== '' && projectInput.value !== ' ') {
         const project = new Project(projectInput.value);
         Storage.addItem(project);
+
+        const newProjectContainer = document.createElement('div');
+        const projectName = document.createElement('p');
+        projectName.textContent = projectInput.value;
+        newProjectContainer.classList.add('projects');
+        newProjectContainer.append(projectName);
+        projectContainer.insertAdjacentElement(
+          'afterbegin',
+          newProjectContainer
+        );
         projectInput.value = '';
       }
       projectInput.remove();
@@ -60,8 +71,8 @@ const CreateElements = (function () {
   };
 
   return {
-    createHTMLProject,
+    createProjectInstance,
   };
 })();
 
-export { Project, Task, CreateElements };
+export { CreateElements };
