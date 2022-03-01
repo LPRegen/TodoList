@@ -13,6 +13,17 @@ class Project {
     this.id = Project.#counter++;
     this.tasks = [];
   }
+
+  hasExpired() {
+    if (
+      differenceInDays(parseISO(this.dueDate), parseISO(this.creationDate)) <=
+      -1
+    ) {
+      console.log('has expired');
+    } else {
+      console.log('still available');
+    }
+  }
 }
 
 class Task extends Project {
@@ -27,17 +38,6 @@ class Task extends Project {
 
   storeNote() {
     this.parentProject.tasks.push(this);
-  }
-
-  hasExpired() {
-    if (
-      differenceInDays(parseISO(this.dueDate), parseISO(this.creationDate)) <=
-      -1
-    ) {
-      console.log('has expired');
-    } else {
-      console.log('still available');
-    }
   }
 }
 
