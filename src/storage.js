@@ -20,8 +20,8 @@ const DataBase = (function () {
   })();
 
   function readDB() {
-    _storage.forEach((el) => {
-      console.log(el);
+    _storage.forEach((project) => {
+      _projectList.push(project.name);
     });
   }
 
@@ -48,11 +48,16 @@ const DataBase = (function () {
     _updateDB();
   }
 
+  function isDuplicated(project) {
+    return _projectList.includes(project.name);
+  }
+
   return {
     readDB,
     deleteDB,
     addElement,
     removeProject,
+    isDuplicated,
   };
 })();
 
@@ -124,5 +129,7 @@ class Task {
       : (task.statusCompleted = false);
   }
 }
+
+DataBase.readDB();
 
 export { DataBase, Project, Task };
