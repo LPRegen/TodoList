@@ -81,6 +81,11 @@ class Project {
     }
     project.tasksContainer.splice(taskIndex, 1);
   }
+
+  static checkDuplicate(project, taskName) {
+    console.log(project.tasksContainer);
+    return project.tasksContainer.includes(taskName);
+  }
 }
 
 class Task {
