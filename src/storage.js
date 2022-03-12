@@ -30,7 +30,7 @@ const DataBase = (function () {
     _updateDB();
   }
 
-  function addElement(project) {
+  function addProject(project) {
     _storage.push(project);
     _updateDB();
   }
@@ -55,7 +55,7 @@ const DataBase = (function () {
   return {
     readDB,
     deleteDB,
-    addElement,
+    addProject,
     removeProject,
     isDuplicated,
   };
@@ -96,7 +96,7 @@ class Task {
   statusCompleted = false;
   dueDate;
 
-  constructor(name, note, parentProject, dueDate = undefined) {
+  constructor(name, note, parentProject, dueDate = false) {
     this.creationDate = formatISO(new Date(), { representation: "date" });
     this.name = name;
     this.note = note;
@@ -105,11 +105,17 @@ class Task {
     this.dueDate = dueDate;
   }
 
-  static storeNote(task, newNote) {
-    task.note = newNote;
+  static modifyNote(task, note) {
+    task.note = note;
   }
-  static modifyName(task, newName) {
-    task.name = newName;
+  static modifyName(task, name) {
+    task.name = name;
+  }
+
+  static modifyStatus(task) {
+    task.statusCompleted === false
+      ? (task.statusCompleted = true)
+      : (task.statusCompleted = false);
   }
 
   static checkDate(task) {
@@ -126,12 +132,6 @@ class Task {
 
   static linkToProject(task, project) {
     project.tasksContainer.push(task);
-  }
-
-  static modifyStatus(task) {
-    task.statusCompleted === false
-      ? (task.statusCompleted = true)
-      : (task.statusCompleted = false);
   }
 }
 
