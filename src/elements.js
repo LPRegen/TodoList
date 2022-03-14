@@ -41,6 +41,14 @@ class ProjectElements {
       projectInput.remove();
     };
   }
+
+  static displayOnLoad() {
+    DataBase.projectList.forEach((el) => {
+      this.createHTML(el);
+    });
+  }
 }
+
+ProjectElements.displayOnLoad();
 
 export { ProjectElements };
