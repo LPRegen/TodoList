@@ -1,19 +1,19 @@
-"use strict";
+'use strict';
 
-import parseISO from "date-fns/parseISO";
-import { formatISO, differenceInDays } from "date-fns";
+import parseISO from 'date-fns/parseISO';
+import { formatISO, differenceInDays } from 'date-fns';
 
 const DataBase = (function () {
   let _storage = [];
   let _projectList = [];
 
   function _updateDB() {
-    localStorage.setItem("storage", JSON.stringify(_storage));
+    localStorage.setItem('storage', JSON.stringify(_storage));
   }
 
   (function _checkStorage() {
-    if (localStorage.getItem("storage")) {
-      _storage = JSON.parse(localStorage.getItem("storage"));
+    if (localStorage.getItem('storage')) {
+      _storage = JSON.parse(localStorage.getItem('storage'));
     } else {
       _updateDB();
     }
@@ -49,7 +49,7 @@ const DataBase = (function () {
   }
 
   function isDuplicated(project) {
-    return _projectList.includes(project.name);
+    return _projectList.includes(project);
   }
 
   return {
@@ -68,7 +68,7 @@ class Project {
 
   constructor(name) {
     this.name = name;
-    this.creationDate = formatISO(new Date(), { representation: "date" });
+    this.creationDate = formatISO(new Date(), { representation: 'date' });
   }
 
   static deleteTask(project, task) {
@@ -97,7 +97,7 @@ class Task {
   dueDate;
 
   constructor(name, note, parentProject, dueDate = false) {
-    this.creationDate = formatISO(new Date(), { representation: "date" });
+    this.creationDate = formatISO(new Date(), { representation: 'date' });
     this.name = name;
     this.note = note;
     this.parentProject = parentProject;
