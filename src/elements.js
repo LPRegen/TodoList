@@ -17,7 +17,16 @@ class ProjectElements {
     };
   }
 
-  static createHTMLProject() {
+  static createHTML(name) {
+    const container = document.createElement('div');
+    const title = document.createElement('p');
+    container.classList.add('projects');
+    container.append(title);
+    title.textContent = name;
+    ProjectElements.projectList.insertAdjacentElement('afterbegin', container);
+  }
+
+  static createFromInput() {
     let projectInput = ProjectElements.createInput().input;
     projectInput.onblur = () => {
       if (
@@ -27,16 +36,7 @@ class ProjectElements {
       ) {
         let newProject = new Project(projectInput.value);
         DataBase.addProject(newProject);
-        const container = document.createElement('div');
-        const title = document.createElement('p');
-        container.classList.add('projects');
-        container.append(title);
-        console.log(newProject);
-        title.textContent = newProject.name;
-        ProjectElements.projectList.insertAdjacentElement(
-          'afterbegin',
-          container
-        );
+        ProjectElements.createHTML(newProject.name);
       }
       projectInput.remove();
     };
