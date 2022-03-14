@@ -31,6 +31,7 @@ const DataBase = (function () {
   }
 
   function addProject(project) {
+    _projectList.push(project.name);
     _storage.push(project);
     _updateDB();
   }
