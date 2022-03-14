@@ -5,7 +5,7 @@ import { formatISO, differenceInDays } from 'date-fns';
 
 const DataBase = (function () {
   let _storage = [];
-  let _projectList = [];
+  let projectList = [];
 
   function _updateDB() {
     localStorage.setItem('storage', JSON.stringify(_storage));
@@ -21,7 +21,8 @@ const DataBase = (function () {
 
   function readDB() {
     _storage.forEach((project) => {
-      _projectList.push(project.name);
+      projectList.push(project.name);
+      return project;
     });
   }
 
@@ -31,7 +32,7 @@ const DataBase = (function () {
   }
 
   function addProject(project) {
-    _projectList.push(project.name);
+    projectList.push(project.name);
     _storage.push(project);
     _updateDB();
   }
@@ -50,10 +51,11 @@ const DataBase = (function () {
   }
 
   function isDuplicated(project) {
-    return _projectList.includes(project);
+    return projectList.includes(project);
   }
 
   return {
+    projectList,
     readDB,
     deleteDB,
     addProject,
