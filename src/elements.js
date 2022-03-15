@@ -10,20 +10,23 @@ class ProjectElements {
     let input = document.createElement('input');
     input.type = 'text';
     input.id = 'project-name';
-    ProjectElements.projectList.insertAdjacentElement('afterbegin', input);
+    ProjectElements.projectList.insertAdjacentElement('beforeend', input);
     input.focus();
     return {
       input,
     };
   }
 
-  static createHTML(name) {
+  static createHTMLList(name) {
     const container = document.createElement('div');
     const title = document.createElement('p');
+    const deleteIcon = document.createElement('span');
     container.classList.add('projects');
-    container.append(title);
+    deleteIcon.classList.add('material-icons-outlined', 'delete-btn');
+    deleteIcon.textContent = 'delete_sweep';
+    container.append(title, deleteIcon);
     title.textContent = name;
-    ProjectElements.projectList.insertAdjacentElement('afterbegin', container);
+    ProjectElements.projectList.insertAdjacentElement('beforeend', container);
   }
 
   static createFromInput() {
@@ -36,7 +39,7 @@ class ProjectElements {
       ) {
         let newProject = new Project(projectInput.value);
         DataBase.addProject(newProject);
-        ProjectElements.createHTML(newProject.name);
+        ProjectElements.createHTMLList(newProject.name);
       }
       projectInput.remove();
     };
@@ -44,11 +47,24 @@ class ProjectElements {
 
   static displayOnLoad() {
     DataBase.projectList.forEach((el) => {
-      this.createHTML(el);
+      ProjectElements.createHTMLList(el);
     });
   }
 }
 
 ProjectElements.displayOnLoad();
 
-export { ProjectElements };
+const UserInterface = (function () {
+  function removeProject(e) {
+    if (e.target.matches('.delete-btn')) {
+      e.target.parentElement.remove();
+      DataBase.removeProject(e.target.parentElement.childNodes[0].textContent);
+    }
+  }
+
+  return {
+    removeProject,
+  };
+})();
+
+export { UserInterface, ProjectElements };
