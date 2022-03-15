@@ -14,12 +14,13 @@
     <nav id="side-bar">
       <p class="item-sidebar">Today</p>
       <p class="item-sidebar">Scheduled</p>
+      <!-- ! Fix -->
+      <h2>Projects</h2>
       <div id="project-container">
-        <h2>Projects</h2>
-        <div class="projects">
+        <!-- <div class="projects">
           <p>First project</p>
-          <!-- <span class="material-icons-outlined">o more_vert </span> -->
-        </div>
+          <span class="material-icons-outlined">o more_vert </span>
+        </div> -->
       </div>
       <div class="new-project">
         <span class="material-icons-outlined"> post_add </span>
@@ -27,14 +28,14 @@
       </div>
       <p id="manage-projects">Manage projects</p>
     </nav>
-    <div class="tasks-container">
-      <header>
+    <div id="tasks-container">
+      <div id="top-container">
         <h1 id="project-name">Today</h1>
         <button id="new-task">
           <span class="material-icons-outlined"> add_task </span>
           <p>New task</p>
         </button>
-      </header>
+      </div>
       <div id="tasks">
         <div id="uncompleted-tasks-list"></div>
         <div id="completed-tasks-list">
@@ -49,7 +50,7 @@
           /></a>
         </div>
       </div>
-      <div class="modal">
+      <!-- <div class="modal">
         <div class="modal-content">
           <h2>New project</h2>
           <div class="modal-container">
@@ -68,7 +69,7 @@
             <button id="cancel-project">Cancel</button>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <script src="./main.js"></script>
