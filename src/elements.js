@@ -62,8 +62,18 @@ const UserInterface = (function () {
     }
   }
 
+  function selectProject(e) {
+    if (e.target.classList.contains('projects')) {
+      e.target.classList.add('selected-project');
+    }
+    if (e.target.parentElement.classList.contains('projects')) {
+      e.target.parentElement.classList.add('selected-project');
+    }
+  }
+
   return {
     removeProject,
+    selectProject,
   };
 })();
 
