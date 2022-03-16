@@ -63,17 +63,29 @@ const UserInterface = (function () {
   }
 
   function selectProject(e) {
+    let projectName;
     if (e.target.classList.contains('projects')) {
       e.target.classList.add('selected-project');
+      projectName = e.target.childNodes[0].textContent;
+      console.log(projectName);
     }
+
     if (e.target.parentElement.classList.contains('projects')) {
       e.target.parentElement.classList.add('selected-project');
+      projectName = e.target.textContent;
+      console.log(projectName);
     }
+  }
+
+  function updateProjectTasks(e) {
+    const projectTitle = document.querySelector('#project-name');
+    projectTitle.textContent = e;
   }
 
   return {
     removeProject,
     selectProject,
+    updateProjectTasks,
   };
 })();
 

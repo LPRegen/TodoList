@@ -32,7 +32,7 @@ h2 {
   gap: 1.2rem;
   width: 20vw;
   height: 100vh;
-  padding-top: 3.125rem;
+  padding-top: 1.8rem;
   background-color: aquamarine;
   z-index: 1;
 }
@@ -50,12 +50,23 @@ h2 {
   content: ' ';
   height: 100%;
   overflow: auto;
-  padding-left: 10%;
 }
 
 .projects {
+  position: relative;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+.selected-project {
+  background-color: rgb(153, 153, 153);
+}
+
+.delete-btn {
+  cursor: pointer;
 }
 
 .new-project {
