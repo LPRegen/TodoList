@@ -47,6 +47,7 @@ const DataBase = (function () {
       }
     }
     _storage.splice(projectIndex, 1);
+    projectList.splice(projectIndex, 1);
     _updateDB();
   }
 
