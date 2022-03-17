@@ -1,5 +1,6 @@
 'use strict';
 
+import { add } from 'date-fns';
 import { differenceInMinutesWithOptions } from 'date-fns/fp';
 import { DataBase, Project, Task } from './storage';
 
@@ -62,6 +63,7 @@ const UserInterface = (function () {
       e.target.parentElement.remove();
       DataBase.removeProject(e.target.parentElement.childNodes[0].textContent);
     }
+    this.updateProjectName('Today');
   }
 
   function selectProject(e) {
@@ -76,15 +78,21 @@ const UserInterface = (function () {
     }
   }
 
-  function updateProjectTasks(e) {
+  function _displayAddTaskBtn() {
+    const addTaskBtn = document.querySelector('#new-task');
+    addTaskBtn.style.visibility = 'visible';
+  }
+
+  function updateProjectName(name = _currentProject) {
     const projectTitle = document.querySelector('#project-name');
-    projectTitle.textContent = _currentProject;
+    projectTitle.textContent = name;
+    _displayAddTaskBtn();
   }
 
   return {
     removeProject,
     selectProject,
-    updateProjectTasks,
+    updateProjectName,
   };
 })();
 
