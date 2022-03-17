@@ -58,6 +58,11 @@ ProjectElements.displayOnLoad();
 const UserInterface = (function () {
   let _currentProject;
 
+  function _displayAddTaskBtn() {
+    const addTaskBtn = document.querySelector('#new-task');
+    addTaskBtn.style.visibility = 'visible';
+  }
+
   function removeProject(e) {
     if (e.target.matches('.delete-btn')) {
       e.target.parentElement.remove();
@@ -76,11 +81,6 @@ const UserInterface = (function () {
       e.target.parentElement.classList.add('selected-project');
       _currentProject = e.target.textContent;
     }
-  }
-
-  function _displayAddTaskBtn() {
-    const addTaskBtn = document.querySelector('#new-task');
-    addTaskBtn.style.visibility = 'visible';
   }
 
   function updateProjectName(name = _currentProject) {
