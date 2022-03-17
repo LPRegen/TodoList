@@ -43,6 +43,14 @@ h2 {
   justify-content: space-between;
 }
 
+.sidebar-categories {
+  padding: 0 1rem;
+}
+
+.sb-groups {
+  margin-bottom: 1rem;
+}
+
 #project-container {
   display: flex;
   flex-direction: column;
@@ -57,8 +65,7 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: 1em;
-  padding-left: 1em;
+  padding: 0 1rem;
 }
 
 .selected-project {
@@ -74,6 +81,7 @@ h2 {
   gap: 10px;
   justify-content: center;
   cursor: pointer;
+  padding-bottom: 1rem;
 }
 
 #create-project {
