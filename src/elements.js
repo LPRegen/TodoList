@@ -55,6 +55,8 @@ class ProjectElements {
 ProjectElements.displayOnLoad();
 
 const UserInterface = (function () {
+  let _currentProject;
+
   function removeProject(e) {
     if (e.target.matches('.delete-btn')) {
       e.target.parentElement.remove();
@@ -63,23 +65,20 @@ const UserInterface = (function () {
   }
 
   function selectProject(e) {
-    let projectName;
     if (e.target.classList.contains('projects')) {
       e.target.classList.add('selected-project');
-      projectName = e.target.childNodes[0].textContent;
-      console.log(projectName);
+      _currentProject = e.target.childNodes[0].textContent;
     }
 
     if (e.target.parentElement.classList.contains('projects')) {
       e.target.parentElement.classList.add('selected-project');
-      projectName = e.target.textContent;
-      console.log(projectName);
+      _currentProject = e.target.textContent;
     }
   }
 
   function updateProjectTasks(e) {
     const projectTitle = document.querySelector('#project-name');
-    projectTitle.textContent = e;
+    projectTitle.textContent = _currentProject;
   }
 
   return {
