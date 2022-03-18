@@ -20,6 +20,5 @@ const Events = (function () {
       project.classList.remove('selected-project');
     });
     UserInterface.selectProject(e);
-    UserInterface.updateProjectTasks(e);
   });
 })();
