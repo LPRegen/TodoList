@@ -37,8 +37,7 @@ const DataBase = (function () {
     _updateDB();
   }
 
-  function removeProject(project) {
-    let projectName = project.name;
+  function removeProject(projectName) {
     let projectIndex;
     for (let i = 0; i < _storage.length; i++) {
       if (_storage[i].name === projectName) {
