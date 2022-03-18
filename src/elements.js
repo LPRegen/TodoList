@@ -56,43 +56,29 @@ class ProjectElements {
 ProjectElements.displayOnLoad();
 
 const UserInterface = (function () {
-  let _currentProject;
-
-  function _displayAddTaskBtn() {
-    const addTaskBtn = document.querySelector('#new-task');
-    addTaskBtn.style.visibility = 'visible';
-  }
+  const _currentProject = document.querySelector('#project-name');
 
   function removeProject(e) {
     if (e.target.matches('.delete-btn')) {
-      e.target.parentElement.remove();
       DataBase.removeProject(e.target.parentElement.childNodes[0].textContent);
+      e.target.parentElement.remove();
     }
-    this.updateProjectName('Today');
+    _currentProject.textContent = 'Today';
   }
 
   function selectProject(e) {
     if (e.target.classList.contains('projects')) {
       e.target.classList.add('selected-project');
-      _currentProject = e.target.childNodes[0].textContent;
+      _currentProject.textContent = e.target.childNodes[0].textContent;
     }
-
     if (e.target.parentElement.classList.contains('projects')) {
       e.target.parentElement.classList.add('selected-project');
-      _currentProject = e.target.textContent;
     }
-  }
-
-  function updateProjectName(name = _currentProject) {
-    const projectTitle = document.querySelector('#project-name');
-    projectTitle.textContent = name;
-    _displayAddTaskBtn();
   }
 
   return {
     removeProject,
     selectProject,
-    updateProjectName,
   };
 })();
 
