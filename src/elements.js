@@ -58,6 +58,13 @@ ProjectElements.displayOnLoad();
 const UserInterface = (function () {
   const _currentProject = document.querySelector('#project-name');
 
+  function _deleteSelectedProjectClass() {
+    let allProjects = document.querySelectorAll('.projects');
+    allProjects.forEach((element) => {
+      element.classList.remove('selected-project');
+    });
+  }
+
   function removeProject(e) {
     if (e.target.matches('.delete-btn')) {
       DataBase.removeProject(e.target.parentElement.childNodes[0].textContent);
@@ -67,18 +74,24 @@ const UserInterface = (function () {
   }
 
   function selectProject(e) {
+    _deleteSelectedProjectClass();
     if (e.target.classList.contains('projects')) {
       e.target.classList.add('selected-project');
       _currentProject.textContent = e.target.childNodes[0].textContent;
     }
-    if (e.target.parentElement.classList.contains('projects')) {
-      e.target.parentElement.classList.add('selected-project');
+  }
+
+  function selectGroup(e) {
+    _deleteSelectedProjectClass();
+    if (e.target.matches('.sb-groups')) {
+      _currentProject.textContent = e.target.textContent;
     }
   }
 
   return {
     removeProject,
     selectProject,
+    selectGroup,
   };
 })();
 
