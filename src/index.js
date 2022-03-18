@@ -5,6 +5,7 @@ import { UserInterface, ProjectElements } from './elements.js';
 const Events = (function () {
   const _createProjectBtn = document.querySelector('#create-project');
   const _projectElements = document.querySelector('#project-container');
+  const _sbCategories = document.querySelector('.sidebar-categories');
 
   _createProjectBtn.addEventListener('click', () => {
     ProjectElements.createFromInput();
@@ -12,13 +13,14 @@ const Events = (function () {
 
   _projectElements.addEventListener('click', (e) => {
     UserInterface.removeProject(e);
+    UserInterface.selectGroup(e);
   });
 
   _projectElements.addEventListener('click', (e) => {
-    let allProjects = Array.from(document.querySelectorAll('.projects'));
-    allProjects.forEach((project) => {
-      project.classList.remove('selected-project');
-    });
     UserInterface.selectProject(e);
+  });
+
+  _sbCategories.addEventListener('click', (e) => {
+    UserInterface.selectGroup(e);
   });
 })();
