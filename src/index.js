@@ -1,6 +1,6 @@
 import './style.css';
 
-import { UserInterface, ProjectElements } from './elements.js';
+import { UserInterface, ProjectElements, TaskElements } from './elements.js';
 
 const Events = (function () {
   const _createProjectBtn = document.querySelector('#create-project');
@@ -10,6 +10,7 @@ const Events = (function () {
   const _addTaskBtn = document.querySelector('#new-task');
   const _cancelTask = document.querySelector('#cancel-task');
   const _saveTask = document.querySelector('#submit-task');
+  const _selectElement = document.querySelector('#all-projects');
 
   _createProjectBtn.addEventListener('click', () => {
     ProjectElements.createFromInput();
@@ -31,10 +32,25 @@ const Events = (function () {
 
   _cancelTask.addEventListener('click', (e) => {
     e.preventDefault();
-    const selectElement = document.querySelector('#all-projects');
-    if (selectElement) {
-      selectElement.remove();
+    if (_selectElement) {
+      _selectElement.remove();
     }
+    _modalTask.style.display = 'none';
+  });
+
+  _saveTask.addEventListener('click', (e) => {
+    const _taskName = document.querySelector('#task-name');
+    const _parentProject = document.querySelector('#all-projects');
+    const _dueDate = document.querySelector('#task-date');
+    const _note = document.querySelector('#task-note');
+
+    TaskElements.createTaskElement(
+      _taskName.value,
+      _note.value,
+      _parentProject.value,
+      _dueDate.value
+    );
+
     _modalTask.style.display = 'none';
   });
 })();
