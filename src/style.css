@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;700&display=swap'); */
 
 * {
   margin: 0;
@@ -135,6 +135,10 @@ h2 {
   padding: 2.5rem 0 1.5rem 0;
 }
 
+#uncompleted-tasks-list {
+  padding-top: 2rem;
+}
+
 #uncompleted-tasks-list,
 #completed-tasks-list {
   display: flex;
@@ -171,11 +175,7 @@ h2 {
   align-items: center;
 }
 
-.done,
-.delete,
-.notes,
-.undo,
-.expand {
+.btn-action {
   cursor: pointer;
 }
 
@@ -241,7 +241,7 @@ img {
 
 /* Modal window. */
 #modal {
-  /* display: none; */
+  display: none;
   position: fixed;
   z-index: 1;
   left: 0;
