@@ -78,6 +78,9 @@ const UserInterface = (function () {
     if (e.target.classList.contains('projects')) {
       e.target.classList.add('selected-project');
       _currentProject.textContent = e.target.childNodes[0].textContent;
+    } else if (e.target.parentElement.classList.contains('projects')) {
+      e.target.parentElement.classList.add('selected-project');
+      _currentProject.textContent = e.target.childNodes[0].textContent;
     }
   }
 
