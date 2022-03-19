@@ -33,15 +33,37 @@
           <p>New task</p>
         </button>
       </div>
-     
-        <div id="uncompleted-tasks-list"></div>
-        <div id="completed-tasks-list"></div>
+
+      <div id="uncompleted-tasks-list"></div>
+      <div id="completed-tasks-list"></div>
+    </div>
+    <footer id="github">
+      <a href="https://github.com/LPRegen" target="_blank"
+        ><img src="./GitHub-Mark-Light-32px.png" alt="Github Icon"
+      /></a>
+    </footer>
+    <div id="modal">
+      <div id="modal-content">
+        <div class="modal-container">
+          <label for="task-name">Task name:</label>
+          <input type="text" name="name" id="task-name" required />
+        </div>
+        <div class="modal-container">
+          <div id="insert-select">Add to project:</div>
+        </div>
+        <div class="modal-container">
+          <label for="task-date">Due date:</label>
+          <input type="date" name="date" id="task-date" />
+        </div>
+        <div class="modal-container">
+          <label for="task-note">Note:</label>
+          <textarea type="text" name="notes" id="task-note"></textarea>
+        </div>
+        <div class="btn-container">
+          <button type="submit" id="submit-task">Save</button>
+          <button id="cancel-task">Cancel</button>
+        </div>
       </div>
-      <footer id="github">
-        <a href="https://github.com/LPRegen" target="_blank"
-          ><img src="./GitHub-Mark-Light-32px.png" alt="Github Icon"
-        /></a>
-      </footer>
     </div>
 
     <script src="./main.js"></script>

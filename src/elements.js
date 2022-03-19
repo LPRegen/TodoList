@@ -57,6 +57,7 @@ ProjectElements.displayOnLoad();
 
 const UserInterface = (function () {
   const _currentProject = document.querySelector('#project-name');
+  const _insertSelect = document.querySelector('#insert-select');
 
   function _deleteSelectedProjectClass() {
     let allProjects = document.querySelectorAll('.projects');
@@ -82,8 +83,7 @@ const UserInterface = (function () {
     if (e.target.classList.contains('projects')) {
       e.target.classList.add('selected-project');
       _updateName(e);
-    }
-    if (
+    } else if (
       e.target.parentElement.classList.contains('projects') &&
       e.target.nodeName !== 'SPAN'
     ) {
@@ -99,10 +99,24 @@ const UserInterface = (function () {
     }
   }
 
+  function createSelectElement() {
+    const selectElement = document.createElement('select');
+    selectElement.name = 'select-project';
+    selectElement.id = 'all-projects';
+    DataBase.projectList.forEach((project) => {
+      const optionElement = document.createElement('option');
+      optionElement.value = `${project}`;
+      optionElement.textContent = `${project}`;
+      selectElement.append(optionElement);
+    });
+    _insertSelect.after(selectElement);
+  }
+
   return {
     removeProject,
     selectProject,
     selectGroup,
+    createSelectElement,
   };
 })();
 
