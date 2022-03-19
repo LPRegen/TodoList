@@ -65,6 +65,10 @@ const UserInterface = (function () {
     });
   }
 
+  function _updateName(e) {
+    _currentProject.textContent = e.target.childNodes[0].textContent;
+  }
+
   function removeProject(e) {
     if (e.target.matches('.delete-btn')) {
       DataBase.removeProject(e.target.parentElement.childNodes[0].textContent);
@@ -77,10 +81,14 @@ const UserInterface = (function () {
     _deleteSelectedProjectClass();
     if (e.target.classList.contains('projects')) {
       e.target.classList.add('selected-project');
-      _currentProject.textContent = e.target.childNodes[0].textContent;
-    } else if (e.target.parentElement.classList.contains('projects')) {
+      _updateName(e);
+    }
+    if (
+      e.target.parentElement.classList.contains('projects') &&
+      e.target.nodeName !== 'SPAN'
+    ) {
       e.target.parentElement.classList.add('selected-project');
-      _currentProject.textContent = e.target.childNodes[0].textContent;
+      _updateName(e);
     }
   }
 
