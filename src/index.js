@@ -13,10 +13,6 @@ const Events = (function () {
 
   _projectElements.addEventListener('click', (e) => {
     UserInterface.removeProject(e);
-    UserInterface.selectGroup(e);
-  });
-
-  _projectElements.addEventListener('click', (e) => {
     UserInterface.selectProject(e);
   });
 
