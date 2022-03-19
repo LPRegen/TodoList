@@ -37,7 +37,7 @@ const DataBase = (function () {
     _updateDB();
   }
 
-  function removeProject(projectName) {
+  function returnIndex(projectName) {
     let projectIndex;
     for (let i = 0; i < _storage.length; i++) {
       if (_storage[i].name === projectName) {
@@ -45,8 +45,13 @@ const DataBase = (function () {
         break;
       }
     }
-    _storage.splice(projectIndex, 1);
-    projectList.splice(projectIndex, 1);
+    return projectIndex;
+  }
+
+  function removeProject(projectName) {
+    let index = returnIndex(projectName);
+    _storage.splice(index, 1);
+    projectList.splice(index, 1);
     _updateDB();
   }
 
@@ -59,6 +64,7 @@ const DataBase = (function () {
     readDB,
     deleteDB,
     addProject,
+    returnIndex,
     removeProject,
     isDuplicated,
   };
