@@ -28,6 +28,7 @@ const DataBase = (function () {
 
   function deleteDB() {
     _storage = [];
+    projectList = [];
     _updateDB();
   }
 
