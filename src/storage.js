@@ -7,33 +7,38 @@ const DataBase = (function () {
   let _storage = [];
   let projectList = [];
 
-  function _updateDB() {
+  function updateDB() {
     localStorage.setItem('storage', JSON.stringify(_storage));
   }
 
   (function _checkStorage() {
     if (localStorage.getItem('storage')) {
       _storage = JSON.parse(localStorage.getItem('storage'));
-      projectList = _storage.map((project) => project);
     } else {
-      _updateDB();
+      updateDB();
     }
   })();
 
-  function selectProject(index) {
+  function readDB() {
+    _storage.forEach((project) => {
+      projectList.push(project.name);
+    });
+  }
+
+  function returnProject(index) {
     return _storage[index];
   }
 
   function deleteDB() {
     _storage = [];
     projectList = [];
-    _updateDB();
+    updateDB();
   }
 
   function addProject(project) {
     projectList.push(project.name);
     _storage.push(project);
-    _updateDB();
+    updateDB();
   }
 
   function returnIndex(projectName) {
@@ -48,10 +53,10 @@ const DataBase = (function () {
   }
 
   function removeProject(projectName) {
-    let index = projectName;
+    let index = returnIndex(projectName);
     _storage.splice(index, 1);
     projectList.splice(index, 1);
-    _updateDB();
+    updateDB();
   }
 
   function isDuplicated(project) {
@@ -60,8 +65,10 @@ const DataBase = (function () {
 
   return {
     projectList,
+    updateDB,
+    readDB,
+    returnProject,
     deleteDB,
-    selectProject,
     addProject,
     returnIndex,
     removeProject,
@@ -142,5 +149,7 @@ class Task {
     project.tasksContainer.push(task);
   }
 }
+
+DataBase.readDB();
 
 export { DataBase, Project, Task };
