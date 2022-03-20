@@ -20,6 +20,7 @@ class TaskElements {
       const deleteBtn = document.createElement('span');
       const noteBtn = document.createElement('span');
       const expandMoreBtn = document.createElement('span');
+
       taskTitle.textContent = name;
       noteContent.textContent = note;
       taskTitle.classList.add('task-title');
@@ -27,6 +28,7 @@ class TaskElements {
       deleteBtn.textContent = 'delete_sweep';
       noteBtn.textContent = 'description';
       expandMoreBtn.textContent = 'expand_more';
+
       taskItem.classList.add('task-item');
       taskContent.classList.add('task-content');
       taskTitle.classList.add('task-title');
@@ -36,9 +38,16 @@ class TaskElements {
       checkBtn.classList.add('material-icons-outlined', 'btn-action');
       deleteBtn.classList.add('material-icons-outlined', 'btn-action');
       noteBtn.classList.add('material-icons-outlined', 'btn-action');
+
       actionsContainer.append(checkBtn, deleteBtn, noteBtn, expandMoreBtn);
       taskContent.append(taskTitle, actionsContainer);
       taskItem.append(taskContent, noteContent);
+
+      Task.linkToProject(
+        newInstance,
+        DataBase.returnProject(DataBase.returnIndex(parentProject))
+      );
+      DataBase.updateDB();
     }
   }
 }
