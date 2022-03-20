@@ -14,16 +14,14 @@ const DataBase = (function () {
   (function _checkStorage() {
     if (localStorage.getItem('storage')) {
       _storage = JSON.parse(localStorage.getItem('storage'));
+      projectList = _storage.map((project) => project);
     } else {
       _updateDB();
     }
   })();
 
-  function readDB() {
-    _storage.forEach((project) => {
-      projectList.push(project.name);
-      return project;
-    });
+  function selectProject(index) {
+    return _storage[index];
   }
 
   function deleteDB() {
@@ -50,7 +48,7 @@ const DataBase = (function () {
   }
 
   function removeProject(projectName) {
-    let index = returnIndex(projectName);
+    let index = projectName;
     _storage.splice(index, 1);
     projectList.splice(index, 1);
     _updateDB();
@@ -62,8 +60,8 @@ const DataBase = (function () {
 
   return {
     projectList,
-    readDB,
     deleteDB,
+    selectProject,
     addProject,
     returnIndex,
     removeProject,
@@ -144,7 +142,5 @@ class Task {
     project.tasksContainer.push(task);
   }
 }
-
-DataBase.readDB();
 
 export { DataBase, Project, Task };
