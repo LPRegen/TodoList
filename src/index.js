@@ -10,7 +10,6 @@ const Events = (function () {
   const _addTaskBtn = document.querySelector('#new-task');
   const _cancelTask = document.querySelector('#cancel-task');
   const _saveTask = document.querySelector('#submit-task');
-  const _selectElement = document.querySelector('#all-projects');
 
   _createProjectBtn.addEventListener('click', () => {
     ProjectElements.createFromInput();
@@ -32,10 +31,10 @@ const Events = (function () {
 
   _cancelTask.addEventListener('click', (e) => {
     e.preventDefault();
-    if (_selectElement) {
-      _selectElement.remove();
-    }
+    const _selectElement = document.querySelector('#all-projects');
+
     _modalTask.style.display = 'none';
+    _selectElement.remove();
   });
 
   _saveTask.addEventListener('click', (e) => {
@@ -44,7 +43,7 @@ const Events = (function () {
     const _dueDate = document.querySelector('#task-date');
     const _note = document.querySelector('#task-note');
 
-    TaskElements.createTaskElement(
+    TaskElements.checkInput(
       _taskName.value,
       _note.value,
       _parentProject.value,
@@ -52,5 +51,6 @@ const Events = (function () {
     );
 
     _modalTask.style.display = 'none';
+    _parentProject.remove();
   });
 })();
