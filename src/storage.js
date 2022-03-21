@@ -10,7 +10,6 @@ const DataBase = (function () {
 
   function updateDB() {
     localStorage.setItem('storage', JSON.stringify(_storage));
-    projectList = _storage;
   }
 
   (function _checkStorage() {
