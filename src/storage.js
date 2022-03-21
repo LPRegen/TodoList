@@ -5,10 +5,12 @@ import { formatISO, differenceInDays } from 'date-fns';
 
 const DataBase = (function () {
   let _storage = [];
+  let _todayTasks = [];
   let projectList = [];
 
   function updateDB() {
     localStorage.setItem('storage', JSON.stringify(_storage));
+    projectList = _storage;
   }
 
   (function _checkStorage() {
@@ -63,6 +65,19 @@ const DataBase = (function () {
     return projectList.includes(project);
   }
 
+  function todayTasks() {
+    const today = formatISO(new Date(), { representation: 'date' });
+    _storage.forEach((project) => {
+      project.tasksContainer.forEach((task) => {
+        if (task.dueDate == today && task.statusCompleted === false) {
+          _todayTasks.push(task);
+        }
+      });
+    });
+    console.log(_todayTasks);
+    return _todayTasks;
+  }
+
   return {
     projectList,
     updateDB,
@@ -73,6 +88,7 @@ const DataBase = (function () {
     returnIndex,
     removeProject,
     isDuplicated,
+    todayTasks,
   };
 })();
 
@@ -98,7 +114,6 @@ class Project {
   }
 
   static checkDuplicate(project, taskName) {
-    console.log(project.tasksContainer);
     return project.tasksContainer.includes(taskName);
   }
 }
@@ -147,6 +162,7 @@ class Task {
 
   static linkToProject(task, project) {
     project.tasksContainer.push(task);
+    DataBase.updateDB();
   }
 }
 
