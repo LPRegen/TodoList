@@ -46,18 +46,29 @@
       <div id="modal-content">
         <div class="modal-container">
           <label for="task-name">Task name:</label>
-          <input type="text" name="name" id="task-name" required />
+          <input
+            type="text"
+            name="name"
+            id="task-name"
+            class="task-input"
+            required
+          />
         </div>
         <div class="modal-container">
           <div id="insert-select">Add to project:</div>
         </div>
         <div class="modal-container">
           <label for="task-date">Due date:</label>
-          <input type="date" name="date" id="task-date" />
+          <input type="date" name="date" id="task-date" class="task-input" />
         </div>
         <div class="modal-container">
           <label for="task-note">Note:</label>
-          <textarea type="text" name="notes" id="task-note"></textarea>
+          <textarea
+            type="text"
+            name="notes"
+            id="task-note"
+            class="task-input"
+          ></textarea>
         </div>
         <div class="btn-container">
           <button type="submit" id="submit-task">Save</button>
