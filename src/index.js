@@ -38,19 +38,19 @@ const Events = (function () {
   });
 
   _saveTask.addEventListener('click', (e) => {
-    const _taskName = document.querySelector('#task-name');
-    const _parentProject = document.querySelector('#all-projects');
-    const _dueDate = document.querySelector('#task-date');
-    const _note = document.querySelector('#task-note');
+    const inputs = document.querySelectorAll('.task-input');
+    const _parentProjectInput = document.querySelector('#all-projects');
 
     TaskElements.checkInput(
-      _taskName.value,
-      _note.value,
-      _parentProject.value,
-      _dueDate.value
+      inputs[0].value,
+      inputs[3].value,
+      inputs[1].value,
+      inputs[2].value
     );
 
+    inputs.forEach((input) => (input.value = ''));
+
     _modalTask.style.display = 'none';
-    _parentProject.remove();
+    _parentProjectInput.remove();
   });
 })();

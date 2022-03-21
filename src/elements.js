@@ -158,6 +158,7 @@ const UserInterface = (function () {
     const selectElement = document.createElement('select');
     selectElement.name = 'select-project';
     selectElement.id = 'all-projects';
+    selectElement.classList.add('task-input');
     DataBase.projectList.forEach((project) => {
       const optionElement = document.createElement('option');
       optionElement.value = `${project}`;
