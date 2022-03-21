@@ -5,46 +5,53 @@ import { differenceInMinutesWithOptions } from 'date-fns/fp';
 import { DataBase, Project, Task } from './storage';
 
 class TaskElements {
+  static completedTask = document.querySelector('#completed-tasks-list');
+  static uncompletedTask = document.querySelector('#uncompleted-tasks-list');
+
   static createTaskElement(name, note, parentProject, dueDate) {
+    const newInstance = new Task(name, note, parentProject, dueDate);
+
+    const taskItem = document.createElement('div');
+    const taskContent = document.createElement('div');
+    const taskTitle = document.createElement('p');
+    const actionsContainer = document.createElement('div');
+    const noteContent = document.createElement('div');
+    const checkBtn = document.createElement('span');
+    const deleteBtn = document.createElement('span');
+    const noteBtn = document.createElement('span');
+    const expandMoreBtn = document.createElement('span');
+
+    taskTitle.textContent = name;
+    noteContent.textContent = note;
+    taskTitle.classList.add('task-title');
+    checkBtn.textContent = 'done';
+    deleteBtn.textContent = 'delete_sweep';
+    noteBtn.textContent = 'description';
+    expandMoreBtn.textContent = 'expand_more';
+
+    taskItem.classList.add('task-item');
+    taskContent.classList.add('task-content');
+    taskTitle.classList.add('task-title');
+    actionsContainer.classList.add('actions');
+    noteContent.classList.add('note-content');
+    expandMoreBtn.classList.add('material-icons-outlined', 'btn-action');
+    checkBtn.classList.add('material-icons-outlined', 'btn-action');
+    deleteBtn.classList.add('material-icons-outlined', 'btn-action');
+    noteBtn.classList.add('material-icons-outlined', 'btn-action');
+
+    actionsContainer.append(checkBtn, deleteBtn, noteBtn, expandMoreBtn);
+    taskContent.append(taskTitle, actionsContainer);
+    taskItem.append(taskContent, noteContent);
+    this.uncompletedTask.append(taskItem);
+
+    return newInstance;
+  }
+
+  static checkInput(name, note, parentProject, dueDate) {
     const taskName = document.querySelector('#task-name');
-    // ! Check if the task already exists in selected project.
     if (taskName.value !== '' && taskName.value !== ' ') {
-      const newInstance = new Task(name, note, parentProject, dueDate);
-
-      const taskItem = document.createElement('div');
-      const taskContent = document.createElement('div');
-      const taskTitle = document.createElement('p');
-      const actionsContainer = document.createElement('div');
-      const noteContent = document.createElement('div');
-      const checkBtn = document.createElement('span');
-      const deleteBtn = document.createElement('span');
-      const noteBtn = document.createElement('span');
-      const expandMoreBtn = document.createElement('span');
-
-      taskTitle.textContent = name;
-      noteContent.textContent = note;
-      taskTitle.classList.add('task-title');
-      checkBtn.textContent = 'done';
-      deleteBtn.textContent = 'delete_sweep';
-      noteBtn.textContent = 'description';
-      expandMoreBtn.textContent = 'expand_more';
-
-      taskItem.classList.add('task-item');
-      taskContent.classList.add('task-content');
-      taskTitle.classList.add('task-title');
-      actionsContainer.classList.add('actions');
-      noteContent.classList.add('note-content');
-      expandMoreBtn.classList.add('material-icons-outlined', 'btn-action');
-      checkBtn.classList.add('material-icons-outlined', 'btn-action');
-      deleteBtn.classList.add('material-icons-outlined', 'btn-action');
-      noteBtn.classList.add('material-icons-outlined', 'btn-action');
-
-      actionsContainer.append(checkBtn, deleteBtn, noteBtn, expandMoreBtn);
-      taskContent.append(taskTitle, actionsContainer);
-      taskItem.append(taskContent, noteContent);
-
       Task.linkToProject(
-        newInstance,
+        this.createTaskElement(name, note, parentProject, dueDate),
         DataBase.returnProject(DataBase.returnIndex(parentProject))
       );
       DataBase.updateDB();
