@@ -135,7 +135,7 @@ const UserInterface = (function () {
   }
 
   function _updateName(e) {
-    // Refactor this
+    // ! Refactor
     _currentProject.textContent = e.target.childNodes[0].textContent;
   }
 
