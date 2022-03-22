@@ -77,7 +77,7 @@ class ProjectElements {
     const container = document.createElement('div');
     const title = document.createElement('p');
     const deleteIcon = document.createElement('span');
-    container.classList.add('projects');
+    container.classList.add('projects', 'section');
     deleteIcon.classList.add('material-icons-outlined', 'delete-btn');
     deleteIcon.textContent = 'delete_sweep';
     container.append(title, deleteIcon);
@@ -113,15 +113,29 @@ ProjectElements.displayOnLoad();
 const UserInterface = (function () {
   const _currentProject = document.querySelector('#project-name');
   const _insertSelect = document.querySelector('#insert-select');
+  const _displayGroups = [
+    _todayGroup,
+    //  'thisWeek',
+    //  'uncategorized',
+    // 'projects'
+  ];
 
-  function _deleteSelectedProjectClass() {
-    let allProjects = document.querySelectorAll('.projects');
-    allProjects.forEach((element) => {
-      element.classList.remove('selected-project');
+  function _todayGroup() {
+    // Modify h2
+    // Create new tasks based on array, maybe i can delete the array and just return the projects with dueDate as today.
+    // Refactor removeProject, last line where I hard code the content of the h2.
+    // Look at the way of a new project is created.
+    DataBase.todayTasks();
+  }
+
+  function _deleteClass(element) {
+    element.forEach((html) => {
+      html.classList.remove(`selected`);
     });
   }
 
   function _updateName(e) {
+    // Refactor this
     _currentProject.textContent = e.target.childNodes[0].textContent;
   }
 
@@ -130,27 +144,21 @@ const UserInterface = (function () {
       DataBase.removeProject(e.target.parentElement.childNodes[0].textContent);
       e.target.parentElement.remove();
     }
+    // ! Refactor
     _currentProject.textContent = 'Today';
   }
 
-  function selectProject(e) {
-    _deleteSelectedProjectClass();
-    if (e.target.classList.contains('projects')) {
-      e.target.classList.add('selected-project');
-      _updateName(e);
-    } else if (
-      e.target.parentElement.classList.contains('projects') &&
-      e.target.nodeName !== 'SPAN'
-    ) {
-      e.target.parentElement.classList.add('selected-project');
-      _updateName(e);
-    }
-  }
-
-  function selectGroup(e) {
-    _deleteSelectedProjectClass();
-    if (e.target.matches('.sb-groups')) {
-      _currentProject.textContent = e.target.textContent;
+  function selectSection(e) {
+    let allSections = document.querySelectorAll('.section');
+    _deleteClass(allSections);
+    if (e.target.nodeName !== 'SPAN') {
+      if (e.target.classList.contains('section')) {
+        e.target.classList.add('selected');
+        _updateName(e);
+      } else if (e.target.parentElement.classList.contains('section')) {
+        e.target.parentElement.classList.add('selected');
+        _updateName(e);
+      }
     }
   }
 
@@ -170,8 +178,9 @@ const UserInterface = (function () {
 
   return {
     removeProject,
-    selectProject,
-    selectGroup,
+    selectSection,
+    // selectProject,
+    // selectGroup,
     createSelectElement,
   };
 })();
