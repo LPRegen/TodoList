@@ -13,7 +13,7 @@
   <body>
     <nav id="side-bar">
       <div class="sidebar-categories">
-        <h2 class="sb-groups section" data-group="0">Today</h2>
+        <h2 class="sb-groups section selected" data-group="0">Today</h2>
         <h2 class="sb-groups section" data-group="1">This week</h2>
         <h2 class="sb-groups section" data-group="2">Uncategorized</h2>
         <h2 class="sb-groups section" data-group="3">Projects</h2>
@@ -27,15 +27,13 @@
     </nav>
     <div id="tasks-container">
       <div id="top-container">
-        <h1 id="project-name">Today</h1>
+        <h1 id="section-name">Today</h1>
         <button id="new-task">
           <span class="material-icons-outlined"> add_task </span>
           <p>New task</p>
         </button>
       </div>
-
-      <div id="uncompleted-tasks-list"></div>
-      <div id="completed-tasks-list"></div>
+      <div id="task-items"></div>
     </div>
     <footer id="github">
       <a href="https://github.com/LPRegen" target="_blank"
