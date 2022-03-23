@@ -1,6 +1,7 @@
 import './style.css';
 
 import { UserInterface, ProjectElements, TaskElements } from './elements.js';
+import { add } from 'date-fns';
 
 const Events = (function () {
   const _createProjectBtn = document.querySelector('#create-project');
@@ -9,9 +10,10 @@ const Events = (function () {
   const _addTaskBtn = document.querySelector('#new-task');
   const _cancelTask = document.querySelector('#cancel-task');
   const _saveTask = document.querySelector('#submit-task');
-  const sideBar = document.querySelector('#side-bar');
+  const _sideBar = document.querySelector('#side-bar');
+  const _sidebarCategories = document.querySelector('.sidebar-categories');
 
-  sideBar.addEventListener('click', (e) => {
+  _sideBar.addEventListener('click', (e) => {
     UserInterface.selectSection(e);
   });
 
@@ -40,6 +42,7 @@ const Events = (function () {
     const inputs = document.querySelectorAll('.task-input');
     const _parentProjectInput = document.querySelector('#all-projects');
 
+    // ! Change the order of parameters/arguments to use the spread operator.
     TaskElements.checkInput(
       inputs[0].value,
       inputs[3].value,
@@ -52,4 +55,8 @@ const Events = (function () {
     _modalTask.style.display = 'none';
     _parentProjectInput.remove();
   });
+
+  _sidebarCategories.addEventListener('click', (e) =>
+    UserInterface.displaySection(e)
+  );
 })();
