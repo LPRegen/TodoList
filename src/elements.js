@@ -6,7 +6,7 @@ import { DataBase, Project, Task } from './storage';
 
 class TaskElements {
   static completedTask = document.querySelector('#completed-tasks-list');
-  static uncompletedTask = document.querySelector('#uncompleted-tasks-list');
+  static taskContainer = document.querySelector('#task-items');
 
   static createTaskElement(name, note, parentProject, dueDate) {
     const newInstance = new Task(name, note, parentProject, dueDate);
@@ -42,7 +42,7 @@ class TaskElements {
     actionsContainer.append(checkBtn, deleteBtn, noteBtn, expandMoreBtn);
     taskContent.append(taskTitle, actionsContainer);
     taskItem.append(taskContent, noteContent);
-    this.uncompletedTask.append(taskItem);
+    this.taskContainer.append(taskItem);
 
     return newInstance;
   }
@@ -100,32 +100,44 @@ class ProjectElements {
       projectInput.remove();
     };
   }
+}
 
-  static displayOnLoad() {
+const UserInterface = (function () {
+  const _taskContainer = document.querySelector('#task-items');
+  const _currentSection = document.querySelector('#section-name');
+  const _insertSelect = document.querySelector('#insert-select');
+  const _displayGroups = [_todayGroup, _thisWeek, _uncategorized, _projects];
+
+  (function displayOnLoad() {
     DataBase.projectList.forEach((el) => {
       ProjectElements.createHTMLList(el);
     });
-  }
-}
-
-ProjectElements.displayOnLoad();
-
-const UserInterface = (function () {
-  const _currentProject = document.querySelector('#project-name');
-  const _insertSelect = document.querySelector('#insert-select');
-  const _displayGroups = [
-    _todayGroup,
-    //  'thisWeek',
-    //  'uncategorized',
-    // 'projects'
-  ];
+    _todayGroup();
+  })();
 
   function _todayGroup() {
-    // Modify h2
-    // Create new tasks based on array, maybe i can delete the array and just return the projects with dueDate as today.
-    // Refactor removeProject, last line where I hard code the content of the h2.
-    // Look at the way of a new project is created.
-    DataBase.todayTasks();
+    if (_taskContainer.childElementCount !== DataBase.todayTasks().length) {
+      DataBase.todayTasks().forEach((task) => {
+        TaskElements.createTaskElement(
+          task.name,
+          task.note,
+          task.parentProject,
+          task.dueDate
+        );
+      });
+    }
+  }
+
+  function _thisWeek() {
+    console.log('This week');
+  }
+
+  function _uncategorized() {
+    console.log('Uncategorized');
+  }
+
+  function _projects() {
+    console.log('Proyects');
   }
 
   function _deleteClass(element) {
@@ -136,7 +148,7 @@ const UserInterface = (function () {
 
   function _updateName(e) {
     // ! Refactor
-    _currentProject.textContent = e.target.childNodes[0].textContent;
+    _currentSection.textContent = e.target.childNodes[0].textContent;
   }
 
   function removeProject(e) {
@@ -145,7 +157,7 @@ const UserInterface = (function () {
       e.target.parentElement.remove();
     }
     // ! Refactor
-    _currentProject.textContent = 'Today';
+    _currentSection.textContent = 'Today';
   }
 
   function selectSection(e) {
@@ -176,12 +188,15 @@ const UserInterface = (function () {
     _insertSelect.after(selectElement);
   }
 
+  function displaySection(e) {
+    _displayGroups[e.target.dataset.group]();
+  }
+
   return {
     removeProject,
     selectSection,
-    // selectProject,
-    // selectGroup,
     createSelectElement,
+    displaySection,
   };
 })();
 
