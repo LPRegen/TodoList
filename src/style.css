@@ -1,5 +1,3 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;700&display=swap'); */
-
 * {
   margin: 0;
   padding: 0;
@@ -42,11 +40,8 @@ h2 {
   justify-content: space-between;
 }
 
-.sidebar-categories {
-  padding: 0 1rem;
-}
-
 .sb-groups {
+  padding: 0 1rem;
   margin-bottom: 1rem;
   cursor: pointer;
 }
@@ -69,7 +64,7 @@ h2 {
   padding: 0 1rem;
 }
 
-.selected-project {
+.selected {
   background-color: rgb(153, 153, 153);
 }
 
@@ -107,7 +102,7 @@ h2 {
   align-items: center;
 }
 
-#project-name {
+#section-name {
   text-align: center;
   font-size: clamp(1rem, -0.3889rem + 7.4074vw, 2rem);
   letter-spacing: 2px;
@@ -125,22 +120,8 @@ h2 {
   background-color: transparent;
 }
 
-/* Tasks section */
-#tasks {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  content: ' ';
-  overflow: auto;
-  padding: 2.5rem 0 1.5rem 0;
-}
-
-#uncompleted-tasks-list {
+#task-items {
   padding-top: 2rem;
-}
-
-#uncompleted-tasks-list,
-#completed-tasks-list {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
@@ -271,17 +252,6 @@ img {
   flex-direction: column;
   gap: 0.5vh;
 }
-
-/* #task-name { */
-/* width: 100%;
-  all: unset;
-  font-size: 16px;
-  text-align: left;
-  border-style: none none solid none;
-  border-color: black;
-  border-width: 1px; */
-/* background-color: transparent; */
-/* } */
 
 #task-note {
   height: 15vh;
