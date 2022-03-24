@@ -6,7 +6,7 @@ import { formatISO, differenceInDays } from 'date-fns';
 const DataBase = (function () {
   let _storage = [
     {
-      name: 'uncategorized',
+      name: 'Uncategorized',
       creationDate: '2022-03-24',
       tasksContainer: [],
     },
