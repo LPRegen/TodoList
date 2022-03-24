@@ -1,6 +1,5 @@
 'use strict';
 
-import { add } from 'date-fns';
 import { differenceInMinutesWithOptions } from 'date-fns/fp';
 import { DataBase, Project, Task } from './storage';
 
@@ -60,6 +59,7 @@ class TaskElements {
 }
 
 class ProjectElements {
+  static projectCounter = 0;
   static projectList = document.querySelector('#project-container');
 
   static createInput() {
@@ -80,6 +80,7 @@ class ProjectElements {
     container.classList.add('projects', 'section');
     deleteIcon.classList.add('material-icons-outlined', 'delete-btn');
     deleteIcon.textContent = 'delete_sweep';
+    container.dataset.project = this.projectCounter++;
     container.append(title, deleteIcon);
     title.textContent = name;
     ProjectElements.projectList.insertAdjacentElement('beforeend', container);
@@ -106,7 +107,7 @@ const UserInterface = (function () {
   const _taskContainer = document.querySelector('#task-items');
   const _currentSection = document.querySelector('#section-name');
   const _insertSelect = document.querySelector('#insert-select');
-  const _displayGroups = [_todayGroup, _thisWeek, _uncategorized, _projects];
+  const _displayGroups = [_todayGroup, _thisWeek, _projects];
 
   (function displayOnLoad() {
     DataBase.projectList.forEach((el) => {
@@ -114,6 +115,28 @@ const UserInterface = (function () {
     });
     _todayGroup();
   })();
+
+  function _clearTaskContainer() {
+    _taskContainer.textContent = '';
+  }
+
+  function _displayProject(e) {
+    _clearTaskContainer();
+    let projectNumber;
+    e.target.dataset.project
+      ? (projectNumber = e.target.dataset.project)
+      : (projectNumber = e.target.parentElement.dataset.project);
+    if (projectNumber) {
+      DataBase.returnProject(projectNumber).tasksContainer.forEach((task) => {
+        TaskElements.createTaskElement(
+          task.name,
+          task.note,
+          task.parentProject,
+          task.dueDate
+        );
+      });
+    }
+  }
 
   function _todayGroup() {
     if (_taskContainer.childElementCount !== DataBase.todayTasks().length) {
@@ -130,10 +153,6 @@ const UserInterface = (function () {
 
   function _thisWeek() {
     console.log('This week');
-  }
-
-  function _uncategorized() {
-    console.log('Uncategorized');
   }
 
   function _projects() {
@@ -167,9 +186,11 @@ const UserInterface = (function () {
       if (e.target.classList.contains('section')) {
         e.target.classList.add('selected');
         _updateName(e);
+        _displayProject(e);
       } else if (e.target.parentElement.classList.contains('section')) {
         e.target.parentElement.classList.add('selected');
         _updateName(e);
+        _displayProject(e);
       }
     }
   }
@@ -189,7 +210,9 @@ const UserInterface = (function () {
   }
 
   function displaySection(e) {
-    _displayGroups[e.target.dataset.group]();
+    if (!e.target.classList.contains('sidebar-categories')) {
+      _displayGroups[e.target.dataset.group]();
+    }
   }
 
   return {
