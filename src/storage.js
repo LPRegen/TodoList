@@ -4,7 +4,13 @@ import parseISO from 'date-fns/parseISO';
 import { formatISO, differenceInDays } from 'date-fns';
 
 const DataBase = (function () {
-  let _storage = [];
+  let _storage = [
+    {
+      name: 'uncategorized',
+      creationDate: '2022-03-24',
+      tasksContainer: [],
+    },
+  ];
   let _todayTasks = [];
   let projectList = [];
 
@@ -119,7 +125,6 @@ class Project {
     return project.tasksContainer.includes(taskName);
   }
 }
-
 class Task {
   creationDate;
   name;
