@@ -1,7 +1,6 @@
 import './style.css';
 
 import { UserInterface, ProjectElements, TaskElements } from './elements.js';
-import { add } from 'date-fns';
 
 const Events = (function () {
   const _createProjectBtn = document.querySelector('#create-project');
@@ -11,7 +10,6 @@ const Events = (function () {
   const _cancelTask = document.querySelector('#cancel-task');
   const _saveTask = document.querySelector('#submit-task');
   const _sideBar = document.querySelector('#side-bar');
-  const _sidebarCategories = document.querySelector('.sidebar-categories');
 
   _sideBar.addEventListener('click', (e) => {
     UserInterface.selectSection(e);
@@ -33,7 +31,6 @@ const Events = (function () {
   _cancelTask.addEventListener('click', (e) => {
     e.preventDefault();
     const _selectElement = document.querySelector('#all-projects');
-
     _modalTask.style.display = 'none';
     _selectElement.remove();
   });
@@ -55,8 +52,4 @@ const Events = (function () {
     _modalTask.style.display = 'none';
     _parentProjectInput.remove();
   });
-
-  _sidebarCategories.addEventListener('click', (e) =>
-    UserInterface.displaySection(e)
-  );
 })();

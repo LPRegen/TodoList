@@ -135,20 +135,20 @@ const UserInterface = (function () {
           task.dueDate
         );
       });
+    } else if (e.target.dataset.group) {
+      _displayGroups[e.target.dataset.group]();
     }
   }
 
   function _todayGroup() {
-    if (_taskContainer.childElementCount !== DataBase.todayTasks().length) {
-      DataBase.todayTasks().forEach((task) => {
-        TaskElements.createTaskElement(
-          task.name,
-          task.note,
-          task.parentProject,
-          task.dueDate
-        );
-      });
-    }
+    DataBase.todayTasks().forEach((task) => {
+      TaskElements.createTaskElement(
+        task.name,
+        task.note,
+        task.parentProject,
+        task.dueDate
+      );
+    });
   }
 
   function _thisWeek() {
@@ -209,17 +209,10 @@ const UserInterface = (function () {
     _insertSelect.after(selectElement);
   }
 
-  function displaySection(e) {
-    if (!e.target.classList.contains('sidebar-categories')) {
-      _displayGroups[e.target.dataset.group]();
-    }
-  }
-
   return {
     removeProject,
     selectSection,
     createSelectElement,
-    displaySection,
   };
 })();
 
