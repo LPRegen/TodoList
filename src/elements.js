@@ -7,8 +7,20 @@ class TaskElements {
   static completedTask = document.querySelector('#completed-tasks-list');
   static taskContainer = document.querySelector('#task-items');
 
-  static createTaskElement(name, note, parentProject, dueDate) {
-    const newInstance = new Task(name, note, parentProject, dueDate);
+  static createTaskElement(
+    name,
+    note,
+    parentProject,
+    dueDate,
+    statusCompleted
+  ) {
+    const newInstance = new Task(
+      name,
+      note,
+      parentProject,
+      dueDate,
+      statusCompleted
+    );
 
     const taskItem = document.createElement('div');
     const taskContent = document.createElement('div');
@@ -17,7 +29,7 @@ class TaskElements {
     const noteContent = document.createElement('div');
     const checkBtn = document.createElement('span');
     const deleteBtn = document.createElement('span');
-    const noteBtn = document.createElement('span');
+    const editBtn = document.createElement('span');
     const expandMoreBtn = document.createElement('span');
 
     taskTitle.textContent = name;
@@ -25,7 +37,7 @@ class TaskElements {
     taskTitle.classList.add('task-title');
     checkBtn.textContent = 'done';
     deleteBtn.textContent = 'delete_sweep';
-    noteBtn.textContent = 'description';
+    editBtn.textContent = 'edit';
     expandMoreBtn.textContent = 'expand_more';
 
     taskItem.classList.add('task-item');
@@ -33,12 +45,24 @@ class TaskElements {
     taskTitle.classList.add('task-title');
     actionsContainer.classList.add('actions');
     noteContent.classList.add('note-content');
-    expandMoreBtn.classList.add('material-icons-outlined', 'btn-action');
-    checkBtn.classList.add('material-icons-outlined', 'btn-action');
-    deleteBtn.classList.add('material-icons-outlined', 'btn-action');
-    noteBtn.classList.add('material-icons-outlined', 'btn-action');
+    expandMoreBtn.classList.add(
+      'material-icons-outlined',
+      'btn-expand',
+      'btn-action'
+    );
+    checkBtn.classList.add(
+      'material-icons-outlined',
+      'btn-check',
+      'btn-action'
+    );
+    deleteBtn.classList.add(
+      'material-icons-outlined',
+      'btn-delete',
+      'btn-action'
+    );
+    editBtn.classList.add('material-icons-outlined', 'btn-edit', 'btn-action');
 
-    actionsContainer.append(checkBtn, deleteBtn, noteBtn, expandMoreBtn);
+    actionsContainer.append(checkBtn, deleteBtn, editBtn, expandMoreBtn);
     taskContent.append(taskTitle, actionsContainer);
     taskItem.append(taskContent, noteContent);
     this.taskContainer.append(taskItem);
@@ -46,11 +70,17 @@ class TaskElements {
     return newInstance;
   }
 
-  static checkInput(name, note, parentProject, dueDate) {
+  static checkInput(name, note, parentProject, dueDate, statusCompleted) {
     const taskName = document.querySelector('#task-name');
     if (taskName.value !== '' && taskName.value !== ' ') {
       Task.linkToProject(
-        this.createTaskElement(name, note, parentProject, dueDate),
+        this.createTaskElement(
+          name,
+          note,
+          parentProject,
+          dueDate,
+          statusCompleted
+        ),
         DataBase.returnProject(DataBase.returnIndex(parentProject))
       );
       DataBase.updateDB();
@@ -109,7 +139,7 @@ const UserInterface = (function () {
   const _insertSelect = document.querySelector('#insert-select');
   const _displayGroups = [_todayGroup, _thisWeek, _projects];
 
-  (function displayOnLoad() {
+  (function _displayOnLoad() {
     DataBase.projectList.forEach((el) => {
       ProjectElements.createHTMLList(el);
     });
@@ -135,7 +165,9 @@ const UserInterface = (function () {
           task.dueDate
         );
       });
-    } else if (e.target.dataset.group) {
+    }
+    // ! Refactor
+    if (e.target.dataset.group) {
       _displayGroups[e.target.dataset.group]();
     }
   }
@@ -209,10 +241,26 @@ const UserInterface = (function () {
     _insertSelect.after(selectElement);
   }
 
+  function checkRadioBtn() {
+    const _radioBtn = document.querySelectorAll('.radio-input');
+    let selectedBtn;
+    _radioBtn.forEach((radioBtn) => {
+      if (radioBtn.checked) {
+        selectedBtn = radioBtn;
+      }
+    });
+    if (selectedBtn.value === 'completed') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   return {
     removeProject,
     selectSection,
     createSelectElement,
+    checkRadioBtn,
   };
 })();
 
