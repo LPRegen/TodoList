@@ -253,6 +253,13 @@ img {
   gap: 0.5vh;
 }
 
+.radio-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5%;
+}
+
 #task-note {
   height: 15vh;
   max-width: 100%;
