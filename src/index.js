@@ -10,6 +10,7 @@ const Events = (function () {
   const _cancelTask = document.querySelector('#cancel-task');
   const _saveTask = document.querySelector('#submit-task');
   const _sideBar = document.querySelector('#side-bar');
+  const _taskItemsContainer = document.querySelector('#task-items');
 
   _sideBar.addEventListener('click', (e) => {
     UserInterface.selectSection(e);
@@ -52,5 +53,9 @@ const Events = (function () {
 
     _modalTask.style.display = 'none';
     _parentProjectInput.remove();
+  });
+
+  _taskItemsContainer.addEventListener('click', (e) => {
+    UserInterface.actionButtons(e);
   });
 })();

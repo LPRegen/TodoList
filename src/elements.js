@@ -256,11 +256,37 @@ const UserInterface = (function () {
     }
   }
 
+  function _changeTaskStatus(e) {}
+
+  function _deleteTask(e) {}
+
+  function _editTask(e) {}
+
+  function _showTaskNote(e) {}
+
+  function actionButtons(e) {
+    switch (e.target.classList[1]) {
+      case 'btn-check':
+        _changeTaskStatus(e);
+        break;
+      case 'btn-delete':
+        _deleteTask(e);
+        break;
+      case 'btn-edit':
+        _editTask(e);
+        break;
+      case 'btn-expand':
+        _showTaskNote(e);
+        break;
+    }
+  }
+
   return {
     removeProject,
     selectSection,
     createSelectElement,
     checkRadioBtn,
+    actionButtons,
   };
 })();
 
