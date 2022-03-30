@@ -54,6 +54,26 @@
         <div class="modal-container">
           <div id="insert-select">Add to project:</div>
         </div>
+        <div class="modal-container">Task status</div>
+        <div class="modal-container radio-btns">
+          <input
+            class="radio-input"
+            type="radio"
+            name="status"
+            id="uncompleted"
+            value="uncompleted"
+            checked
+          />
+          <label for="uncompleted">Uncompleted</label>
+          <input
+            class="radio-input"
+            type="radio"
+            name="status"
+            id="completed"
+            value="completed"
+          />
+          <label for="completed">Completed</label>
+        </div>
         <div class="modal-container">
           <label for="task-date">Due date:</label>
           <input type="date" name="date" id="task-date" class="task-input" />
