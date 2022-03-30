@@ -130,16 +130,17 @@ class Task {
   name;
   note;
   parentProject;
-  statusCompleted = false;
+  statusCompleted;
   dueDate;
 
-  constructor(name, note, parentProject, dueDate = false) {
+  constructor(name, note, parentProject, dueDate = false, statusCompleted) {
     this.creationDate = formatISO(new Date(), { representation: 'date' });
     this.name = name;
     this.note = note;
     this.parentProject = parentProject;
     this.statusCompleted;
     this.dueDate = dueDate;
+    this.statusCompleted = statusCompleted;
   }
 
   static modifyNote(task, note) {
@@ -170,6 +171,18 @@ class Task {
   static linkToProject(task, project) {
     project.tasksContainer.push(task);
     DataBase.updateDB();
+  }
+
+  static returnTask(taskName, project) {
+    let taskItem;
+    for (let i = 0; i < project.tasksContainer.length; i++) {
+      if (taskName === project.tasksContainer[i].name) {
+        taskItem = project.tasksContainer[i];
+        break;
+      }
+    }
+    DataBase.updateDB();
+    return taskItem;
   }
 }
 
