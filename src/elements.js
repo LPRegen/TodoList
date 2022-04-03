@@ -41,6 +41,9 @@ class TaskElements {
 
     taskItem.classList.add('task-item');
     taskContent.classList.add('task-content');
+    if (statusCompleted === true) {
+      taskContent.classList.add('completed-task');
+    }
     taskTitle.classList.add('task-title');
     actionsContainer.classList.add('actions');
     noteContent.classList.add('note-content');
@@ -161,7 +164,8 @@ const UserInterface = (function () {
           task.name,
           task.note,
           task.parentProject,
-          task.dueDate
+          task.dueDate,
+          task.statusCompleted
         );
       });
     }
@@ -177,7 +181,8 @@ const UserInterface = (function () {
         task.name,
         task.note,
         task.parentProject,
-        task.dueDate
+        task.dueDate,
+        task.statusCompleted
       );
     });
   }
@@ -261,8 +266,13 @@ const UserInterface = (function () {
     let taskProject = DataBase.returnProject(
       DataBase.returnIndex(document.querySelector('#section-name').textContent)
     );
-
-    Task.modifyStatus(Task.returnTask(taskName, taskProject));
+    let taskItem = Task.returnTask(taskName, taskProject);
+    Task.modifyStatus(taskItem);
+    if (taskItem.statusCompleted === true) {
+      e.target.parentElement.parentElement.classList.add('completed-task');
+    } else {
+      e.target.parentElement.parentElement.classList.remove('completed-task');
+    }
   }
 
   function _deleteTask() {}
