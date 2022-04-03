@@ -279,7 +279,13 @@ const UserInterface = (function () {
 
   function _editTask() {}
 
-  function _showTaskNote() {}
+  function _showTaskNote(e) {
+    let taskContent =
+      e.target.parentElement.parentElement.parentElement.childNodes[1];
+    taskContent.classList.contains('displayed-note')
+      ? taskContent.classList.remove('displayed-note')
+      : taskContent.classList.add('displayed-note');
+  }
 
   function actionButtons(e) {
     switch (e.target.classList[1]) {
