@@ -275,7 +275,16 @@ const UserInterface = (function () {
     }
   }
 
-  function _deleteTask() {}
+  function _deleteTask(e) {
+    let taskName =
+      e.target.parentElement.parentElement.firstElementChild.textContent;
+    let taskProject = DataBase.returnProject(
+      DataBase.returnIndex(document.querySelector('#section-name').textContent)
+    );
+    let taskItem = Task.returnTask(taskName, taskProject);
+    Project.deleteTask(taskProject, taskItem);
+    e.target.parentElement.parentElement.parentElement.remove();
+  }
 
   function _editTask() {}
 
