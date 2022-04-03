@@ -1,6 +1,5 @@
 'use strict';
 
-import { differenceInMinutesWithOptions } from 'date-fns/fp';
 import { DataBase, Project, Task } from './storage';
 
 class TaskElements {
@@ -256,13 +255,21 @@ const UserInterface = (function () {
     }
   }
 
-  function _changeTaskStatus(e) {}
+  function _changeTaskStatus(e) {
+    let taskName =
+      e.target.parentElement.parentElement.firstElementChild.textContent;
+    let taskProject = DataBase.returnProject(
+      DataBase.returnIndex(document.querySelector('#section-name').textContent)
+    );
 
-  function _deleteTask(e) {}
+    Task.modifyStatus(Task.returnTask(taskName, taskProject));
+  }
 
-  function _editTask(e) {}
+  function _deleteTask() {}
 
-  function _showTaskNote(e) {}
+  function _editTask() {}
+
+  function _showTaskNote() {}
 
   function actionButtons(e) {
     switch (e.target.classList[1]) {
