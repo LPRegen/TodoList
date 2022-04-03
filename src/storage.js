@@ -119,6 +119,7 @@ class Project {
       }
     }
     project.tasksContainer.splice(taskIndex, 1);
+    DataBase.updateDB();
   }
 
   static checkDuplicate(project, taskName) {
