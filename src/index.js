@@ -36,7 +36,7 @@ const Events = (function () {
     _selectElement.remove();
   });
 
-  _saveTask.addEventListener('click', (e) => {
+  _saveTask.addEventListener('click', () => {
     const inputs = document.querySelectorAll('.task-input');
     const _parentProjectInput = document.querySelector('#all-projects');
 
