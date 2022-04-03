@@ -125,6 +125,7 @@ class Project {
     return project.tasksContainer.includes(taskName);
   }
 }
+
 class Task {
   creationDate;
   name;
@@ -154,6 +155,7 @@ class Task {
     task.statusCompleted === false
       ? (task.statusCompleted = true)
       : (task.statusCompleted = false);
+    DataBase.updateDB();
   }
 
   static checkDate(task) {
@@ -181,7 +183,6 @@ class Task {
         break;
       }
     }
-    DataBase.updateDB();
     return taskItem;
   }
 }
