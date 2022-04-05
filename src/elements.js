@@ -241,6 +241,9 @@ const UserInterface = (function () {
       optionElement.value = `${project}`;
       optionElement.textContent = `${project}`;
       selectElement.append(optionElement);
+      if (_currentSection.textContent === project) {
+        optionElement.setAttribute('selected', 'selected');
+      }
     });
     _insertSelect.after(selectElement);
   }
