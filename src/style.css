@@ -83,7 +83,7 @@ h2 {
   gap: 10px;
   justify-content: center;
   cursor: pointer;
-  padding-bottom: 1rem;
+  margin: 0 3rem 1rem 3rem;
 }
 
 #create-project {
