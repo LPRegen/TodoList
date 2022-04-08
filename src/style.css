@@ -26,12 +26,13 @@ h2 {
 #side-bar {
   display: flex;
   flex-direction: column;
-  position: relative;
-  width: 20vw;
-  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 100%;
   padding-top: 1.8rem;
   background-color: aquamarine;
-  z-index: 1;
 }
 
 .item-sidebar {
@@ -96,7 +97,10 @@ h2 {
 
 /* ! Task container */
 #tasks-container {
-  padding: 1rem 5% 0 5%;
+  position: relative;
+  left: 25vw;
+  width: 70vw;
+  padding: 1rem 0 0 0;
   display: grid;
   grid-template-rows: 8% 92%;
   height: 100vh;
