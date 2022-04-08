@@ -31,9 +31,11 @@ const Events = (function () {
 
   _cancelTask.addEventListener('click', (e) => {
     e.preventDefault();
+    const inputs = document.querySelectorAll('.task-input');
     const _selectElement = document.querySelector('#all-projects');
     _modalTask.style.display = 'none';
     _selectElement.remove();
+    inputs.forEach((input) => (input.value = ''));
   });
 
   _saveTask.addEventListener('click', () => {
