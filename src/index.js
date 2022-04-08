@@ -3,7 +3,7 @@ import './style.css';
 import { UserInterface, ProjectElements, TaskElements } from './elements.js';
 
 const Events = (function () {
-  const _createProjectBtn = document.querySelector('#create-project');
+  const _createProjectBtn = document.querySelector('.new-project');
   const _projectElements = document.querySelector('#project-container');
   const _modalTask = document.querySelector('#modal');
   const _addTaskBtn = document.querySelector('#new-task');
