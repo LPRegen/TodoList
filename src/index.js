@@ -25,8 +25,10 @@ const Events = (function () {
   });
 
   _addTaskBtn.addEventListener('click', function () {
+    let taskName = document.querySelector('#task-name');
     _modalTask.style.display = 'block';
     UserInterface.createSelectElement();
+    taskName.focus();
   });
 
   _cancelTask.addEventListener('click', (e) => {
