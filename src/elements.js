@@ -74,7 +74,7 @@ class TaskElements {
 
   static checkInput(name, note, parentProject, dueDate, statusCompleted) {
     const taskName = document.querySelector('#task-name');
-    if (taskName.value !== '' && taskName.value !== ' ') {
+    if (taskName.value.trim() !== '') {
       Task.linkToProject(
         this.createTaskElement(
           name,
@@ -122,11 +122,10 @@ class ProjectElements {
     let projectInput = ProjectElements.createInput().input;
     projectInput.onblur = () => {
       if (
-        projectInput.value !== '' &&
-        projectInput.value !== ' ' &&
+        projectInput.value.trim() !== '' &&
         !DataBase.isDuplicated(projectInput.value)
       ) {
-        let newProject = new Project(projectInput.value);
+        let newProject = new Project(projectInput.value.trim());
         DataBase.addProject(newProject);
         ProjectElements.createHTMLList(newProject.name);
       }
