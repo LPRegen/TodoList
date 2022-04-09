@@ -295,7 +295,6 @@ const UserInterface = (function () {
     );
     let taskItem = Task.returnTask(taskName, taskProject);
     const taskElement = e.target.parentElement.parentElement.parentElement;
-    console.log(taskElement);
     const _modalTask = document.querySelector('#modal');
     const _taskInputs = document.querySelectorAll('.task-input');
     const _saveBtn = document.querySelector('#submit-task');
@@ -316,6 +315,9 @@ const UserInterface = (function () {
         );
         _modalTask.style.display = 'none';
         delete _saveBtn.dataset.modify;
+
+        taskElement.querySelector('.task-title').textContent = taskItem.name;
+        taskElement.querySelector('.note-content').textContent = taskItem.note;
       }
     });
   }
