@@ -41,9 +41,7 @@ class TaskElements {
 
     taskItem.classList.add('task-item');
     taskContent.classList.add('task-content');
-    if (statusCompleted === true) {
-      taskContent.classList.add('completed-task');
-    }
+    if (statusCompleted === true) taskContent.classList.add('completed-task');
     taskTitle.classList.add('task-title');
     actionsContainer.classList.add('actions');
     noteContent.classList.add('note-content');
@@ -263,6 +261,7 @@ const UserInterface = (function () {
   }
 
   function _changeTaskStatus(e) {
+    // ! refactor
     let taskName =
       e.target.parentElement.parentElement.firstElementChild.textContent;
     let taskProject = DataBase.returnProject(
@@ -288,7 +287,38 @@ const UserInterface = (function () {
     e.target.parentElement.parentElement.parentElement.remove();
   }
 
-  function _editTask() {}
+  function _editTask(e) {
+    let taskName =
+      e.target.parentElement.parentElement.firstElementChild.textContent;
+    let taskProject = DataBase.returnProject(
+      DataBase.returnIndex(document.querySelector('#section-name').textContent)
+    );
+    let taskItem = Task.returnTask(taskName, taskProject);
+    const taskElement = e.target.parentElement.parentElement.parentElement;
+    console.log(taskElement);
+    const _modalTask = document.querySelector('#modal');
+    const _taskInputs = document.querySelectorAll('.task-input');
+    const _saveBtn = document.querySelector('#submit-task');
+    _saveBtn.dataset.modify = 'true';
+    _modalTask.style.display = 'block';
+    _insertSelect.style.display = 'none';
+    _taskInputs[0].value = taskItem.name;
+    _taskInputs[1].value = taskItem.dueDate;
+    _taskInputs[2].value = taskItem.note;
+    _saveBtn.addEventListener('click', () => {
+      if (_taskInputs[0].value.trim() !== '') {
+        Task.modifyTaskElement(
+          taskItem,
+          _taskInputs[0].value.trim(),
+          _taskInputs[2].value,
+          _taskInputs[1].value,
+          checkRadioBtn()
+        );
+        _modalTask.style.display = 'none';
+        delete _saveBtn.dataset.modify;
+      }
+    });
+  }
 
   function _showTaskNote(e) {
     let taskContent =
