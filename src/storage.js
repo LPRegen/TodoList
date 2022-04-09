@@ -140,22 +140,15 @@ class Task {
     this.name = name;
     this.note = note;
     this.parentProject = parentProject;
-    this.statusCompleted;
     this.dueDate = dueDate;
     this.statusCompleted = statusCompleted;
   }
 
-  static modifyNote(task, note) {
-    task.note = note;
-  }
-  static modifyName(task, name) {
+  static modifyTaskElement(task, name, note, dueDate = '', statusCompleted) {
     task.name = name;
-  }
-
-  static modifyStatus(task) {
-    task.statusCompleted === false
-      ? (task.statusCompleted = true)
-      : (task.statusCompleted = false);
+    task.note = note;
+    task.dueDate = dueDate;
+    task.statusCompleted = statusCompleted;
     DataBase.updateDB();
   }
 
