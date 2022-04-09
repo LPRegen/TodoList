@@ -11,6 +11,7 @@ const Events = (function () {
   const _saveTask = document.querySelector('#submit-task');
   const _sideBar = document.querySelector('#side-bar');
   const _taskItemsContainer = document.querySelector('#task-items');
+  const _insertSelect = document.querySelector('#insert-select');
 
   _sideBar.addEventListener('click', (e) => {
     UserInterface.selectSection(e);
@@ -25,38 +26,43 @@ const Events = (function () {
   });
 
   _addTaskBtn.addEventListener('click', function () {
+    delete _saveTask.dataset.modify;
     let taskName = document.querySelector('#task-name');
     _modalTask.style.display = 'block';
+    _insertSelect.style.display = 'block';
     UserInterface.createSelectElement();
     taskName.focus();
   });
 
   _cancelTask.addEventListener('click', (e) => {
     e.preventDefault();
+    delete _saveTask.dataset.modify;
     const inputs = document.querySelectorAll('.task-input');
     const _selectElement = document.querySelector('#all-projects');
     _modalTask.style.display = 'none';
-    _selectElement.remove();
+    if (_selectElement) _selectElement.remove();
     inputs.forEach((input) => (input.value = ''));
   });
 
   _saveTask.addEventListener('click', () => {
-    const inputs = document.querySelectorAll('.task-input');
-    const _parentProjectInput = document.querySelector('#all-projects');
+    if (!_saveTask.dataset.modify) {
+      const inputs = document.querySelectorAll('.task-input');
+      const _parentProjectInput = document.querySelector('#all-projects');
 
-    // ! Change the order of parameters/arguments to use the spread operator.
-    TaskElements.checkInput(
-      inputs[0].value,
-      inputs[3].value,
-      inputs[1].value,
-      inputs[2].value,
-      UserInterface.checkRadioBtn()
-    );
+      // ! Change the order of parameters/arguments to use the spread operator.
+      TaskElements.checkInput(
+        inputs[0].value,
+        inputs[3].value,
+        inputs[1].value,
+        inputs[2].value,
+        UserInterface.checkRadioBtn()
+      );
 
-    inputs.forEach((input) => (input.value = ''));
+      inputs.forEach((input) => (input.value = ''));
 
-    _modalTask.style.display = 'none';
-    _parentProjectInput.remove();
+      _modalTask.style.display = 'none';
+      _parentProjectInput.remove();
+    }
   });
 
   _taskItemsContainer.addEventListener('click', (e) => {
