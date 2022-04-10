@@ -32,8 +32,14 @@ const DataBase = (function () {
     });
   }
 
-  function returnProject(index) {
-    return _storage[index];
+  function returnProject(projectName) {
+    let returnedProject;
+    _storage.forEach((project) => {
+      if (project.name === projectName) {
+        returnedProject = project;
+      }
+    });
+    return returnedProject;
   }
 
   function deleteDB() {
