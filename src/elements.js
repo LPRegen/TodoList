@@ -316,6 +316,15 @@ const UserInterface = (function () {
         _modalTask.style.display = 'none';
         delete _saveBtn.dataset.modify;
 
+        if (taskItem.statusCompleted === true) {
+          taskElement
+            .querySelector('.task-content')
+            .classList.add('completed-task');
+        } else {
+          taskElement
+            .querySelector('.task-content')
+            .classList.remove('completed-task');
+        }
         taskElement.querySelector('.task-title').textContent = taskItem.name;
         taskElement.querySelector('.note-content').textContent = taskItem.note;
       }
