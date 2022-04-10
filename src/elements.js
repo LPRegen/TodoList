@@ -72,7 +72,7 @@ class TaskElements {
 
   static checkInput(name, note, parentProject, dueDate, statusCompleted) {
     const taskName = document.querySelector('#task-name').value.trim();
-    const project = DataBase.returnProject(DataBase.returnIndex(parentProject));
+    const project = DataBase.returnProject(parentProject);
     if (taskName !== '' && !Project.checkDuplicate(project, taskName)) {
       Task.linkToProject(
         this.createTaskElement(
@@ -90,7 +90,6 @@ class TaskElements {
 }
 
 class ProjectElements {
-  static projectCounter = 0;
   static projectList = document.querySelector('#project-container');
 
   static createInput() {
@@ -111,7 +110,6 @@ class ProjectElements {
     container.classList.add('projects', 'section');
     deleteIcon.classList.add('material-icons-outlined', 'delete-btn');
     deleteIcon.textContent = 'delete_sweep';
-    container.dataset.project = this.projectCounter++;
     container.append(title, deleteIcon);
     title.textContent = name;
     ProjectElements.projectList.insertAdjacentElement('beforeend', container);
@@ -152,12 +150,9 @@ const UserInterface = (function () {
 
   function _displayProject(e) {
     _clearTaskContainer();
-    let projectNumber;
-    e.target.dataset.project
-      ? (projectNumber = e.target.dataset.project)
-      : (projectNumber = e.target.parentElement.dataset.project);
-    if (projectNumber) {
-      DataBase.returnProject(projectNumber).tasksContainer.forEach((task) => {
+    let projectName = _currentSection.textContent;
+    if (projectName) {
+      DataBase.returnProject(projectName).tasksContainer.forEach((task) => {
         TaskElements.createTaskElement(
           task.name,
           task.note,
