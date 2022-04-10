@@ -123,7 +123,13 @@ class Project {
   }
 
   static checkDuplicate(project, taskName) {
-    return project.tasksContainer.includes(taskName);
+    let isDuplicated;
+    project.tasksContainer.forEach((task) => {
+      if (task.name.includes(taskName)) {
+        isDuplicated = true;
+      }
+    });
+    return isDuplicated;
   }
 }
 
