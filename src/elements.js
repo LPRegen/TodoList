@@ -71,8 +71,9 @@ class TaskElements {
   }
 
   static checkInput(name, note, parentProject, dueDate, statusCompleted) {
-    const taskName = document.querySelector('#task-name');
-    if (taskName.value.trim() !== '') {
+    const taskName = document.querySelector('#task-name').value.trim();
+    const project = DataBase.returnProject(DataBase.returnIndex(parentProject));
+    if (taskName !== '' && !Project.checkDuplicate(project, taskName)) {
       Task.linkToProject(
         this.createTaskElement(
           name,
@@ -81,7 +82,7 @@ class TaskElements {
           dueDate,
           statusCompleted
         ),
-        DataBase.returnProject(DataBase.returnIndex(parentProject))
+        project
       );
       DataBase.updateDB();
     }
