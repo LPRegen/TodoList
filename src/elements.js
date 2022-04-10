@@ -203,9 +203,9 @@ const UserInterface = (function () {
     if (e.target.matches('.delete-btn')) {
       DataBase.removeProject(e.target.parentElement.childNodes[0].textContent);
       e.target.parentElement.remove();
+      _currentSection.textContent = 'Today';
+      _displayGroups[0]();
     }
-    // ! Refactor
-    _currentSection.textContent = 'Today';
   }
 
   function selectSection(e) {
