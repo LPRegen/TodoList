@@ -152,6 +152,13 @@ class Task {
     DataBase.updateDB();
   }
 
+  static modifyStatus(task) {
+    task.statusCompleted === false
+      ? (task.statusCompleted = true)
+      : (task.statusCompleted = false);
+    DataBase.updateDB();
+  }
+
   static checkDate(task) {
     let status;
     if (
