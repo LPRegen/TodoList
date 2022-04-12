@@ -151,7 +151,11 @@ const UserInterface = (function () {
   function _displayProject(e) {
     _clearTaskContainer();
     let projectName = _currentSection.textContent;
-    if (projectName) {
+    if (
+      projectName !== 'Today' &&
+      projectName !== 'This week' &&
+      projectName !== 'Projects'
+    ) {
       DataBase.returnProject(projectName).tasksContainer.forEach((task) => {
         TaskElements.createTaskElement(
           task.name,
