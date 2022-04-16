@@ -264,9 +264,7 @@ const UserInterface = (function () {
     // ! refactor
     let taskName =
       e.target.parentElement.parentElement.firstElementChild.textContent;
-    let taskProject = DataBase.returnProject(
-      DataBase.returnIndex(document.querySelector('#section-name').textContent)
-    );
+    let taskProject = DataBase.returnProject(_currentSection.textContent);
     let taskItem = Task.returnTask(taskName, taskProject);
     Task.modifyStatus(taskItem);
     if (taskItem.statusCompleted === true) {
@@ -279,9 +277,7 @@ const UserInterface = (function () {
   function _deleteTask(e) {
     let taskName =
       e.target.parentElement.parentElement.firstElementChild.textContent;
-    let taskProject = DataBase.returnProject(
-      DataBase.returnIndex(document.querySelector('#section-name').textContent)
-    );
+    let taskProject = DataBase.returnProject(_currentSection.textContent);
     let taskItem = Task.returnTask(taskName, taskProject);
     Project.deleteTask(taskProject, taskItem);
     e.target.parentElement.parentElement.parentElement.remove();
