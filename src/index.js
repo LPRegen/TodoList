@@ -33,12 +33,14 @@ const Events = (function () {
     taskName.focus();
   });
 
-  _cancelTask.addEventListener('click', (e) => {
+  _cancelTask.addEventListener('click', () => {
     const inputs = document.querySelectorAll('.task-input');
     const _selectElement = document.querySelector('#all-projects');
     _modalTask.style.display = 'none';
     if (_selectElement) _selectElement.remove();
     inputs.forEach((input) => (input.value = ''));
+    if (document.querySelector('#edit-task'))
+      document.querySelector('#edit-task').replaceWith(_saveTask);
   });
 
   _saveTask.addEventListener('click', () => {
