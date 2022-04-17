@@ -7,11 +7,10 @@ const DataBase = (function () {
   let _storage = [
     {
       name: 'Uncategorized',
-      creationDate: '2022-03-24',
+      creationDate: `${new Date()}`,
       tasksContainer: [],
     },
   ];
-  // let _todayTasks = [];
   let projectList = [];
 
   function updateDB() {
