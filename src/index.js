@@ -1,7 +1,6 @@
 import './style.css';
 
 import { UserInterface, ProjectElements, TaskElements } from './elements.js';
-import { Task } from './storage';
 
 const Events = (function () {
   const _createProjectBtn = document.querySelector('.new-project');
@@ -27,7 +26,6 @@ const Events = (function () {
   });
 
   _addTaskBtn.addEventListener('click', function () {
-    delete _saveTask.dataset.modify;
     let taskName = document.querySelector('#task-name');
     _modalTask.style.display = 'block';
     _insertSelect.style.display = 'block';
@@ -36,8 +34,6 @@ const Events = (function () {
   });
 
   _cancelTask.addEventListener('click', (e) => {
-    e.preventDefault();
-    delete _saveTask.dataset.modify;
     const inputs = document.querySelectorAll('.task-input');
     const _selectElement = document.querySelector('#all-projects');
     _modalTask.style.display = 'none';
