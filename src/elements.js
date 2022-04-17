@@ -26,6 +26,7 @@ class TaskElements {
     const taskTitle = document.createElement('p');
     const actionsContainer = document.createElement('div');
     const noteContent = document.createElement('div');
+    const creationDate = document.createElement('p');
     const checkBtn = document.createElement('span');
     const deleteBtn = document.createElement('span');
     const editBtn = document.createElement('span');
@@ -38,6 +39,7 @@ class TaskElements {
     deleteBtn.textContent = 'delete_sweep';
     editBtn.textContent = 'edit';
     expandMoreBtn.textContent = 'expand_more';
+    creationDate.textContent = `Creation date: ${newInstance.creationDate}`;
 
     taskItem.classList.add('task-item');
     taskContent.classList.add('task-content');
@@ -45,6 +47,7 @@ class TaskElements {
     taskTitle.classList.add('task-title');
     actionsContainer.classList.add('actions');
     noteContent.classList.add('note-content');
+    creationDate.classList.add('creation-date');
     expandMoreBtn.classList.add(
       'material-icons-outlined',
       'btn-expand',
@@ -63,6 +66,7 @@ class TaskElements {
     editBtn.classList.add('material-icons-outlined', 'btn-edit', 'btn-action');
 
     actionsContainer.append(checkBtn, deleteBtn, editBtn, expandMoreBtn);
+    noteContent.append(creationDate);
     taskContent.append(taskTitle, actionsContainer);
     taskItem.append(taskContent, noteContent);
     this.taskContainer.append(taskItem);

@@ -179,6 +179,11 @@ h2 {
   border-radius: 0 0 15px 15px;
 }
 
+.creation-date {
+  text-align: right;
+  font-style: italic;
+}
+
 .displayed-note {
   display: block;
 }
@@ -297,6 +302,7 @@ img {
   margin: auto;
 }
 
+#edit-task,
 #submit-task,
 #cancel-task {
   border-style: none;
