@@ -177,6 +177,7 @@ const UserInterface = (function () {
   }
 
   function _todayGroup() {
+    _currentSection.textContent = 'Today';
     _clearTaskContainer();
     DataBase.todayTasks().forEach((task) => {
       TaskElements.createTaskElement(
@@ -210,6 +211,7 @@ const UserInterface = (function () {
   }
 
   function selectSection(e) {
+    const _sideBar = document.querySelector('#project-container');
     let allSections = document.querySelectorAll('.section');
     _deleteClass(allSections);
     if (e.target.nodeName !== 'SPAN') {
@@ -221,6 +223,8 @@ const UserInterface = (function () {
         e.target.parentElement.classList.add('selected');
         _updateName(e);
         _displayProject(e);
+      } else if (e.target === _sideBar) {
+        _todayGroup();
       }
     }
   }
@@ -300,7 +304,6 @@ const UserInterface = (function () {
     const _saveBtn = document.querySelector('#submit-task');
     _saveBtn.replaceWith(_editBtn);
 
-    _saveBtn.dataset.modify = 'true';
     _modalTask.style.display = 'block';
     _insertSelect.style.display = 'none';
     _taskInputs[0].value = taskItem.name;
@@ -316,8 +319,6 @@ const UserInterface = (function () {
           checkRadioBtn()
         );
         _modalTask.style.display = 'none';
-        delete _saveBtn.dataset.modify;
-
         if (taskItem.statusCompleted === true) {
           taskElement
             .querySelector('.task-content')
