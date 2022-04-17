@@ -275,25 +275,34 @@ const UserInterface = (function () {
     e.target.parentElement.parentElement.parentElement.remove();
   }
 
+  function _createEditBtn() {
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    editBtn.id = 'edit-task';
+    return editBtn;
+  }
+
   function _editTask(e) {
+    const _modalTask = document.querySelector('#modal');
     let taskName =
       e.target.parentElement.parentElement.firstElementChild.textContent;
-    let taskProject = DataBase.returnProject(
-      DataBase.returnIndex(document.querySelector('#section-name').textContent)
-    );
+    let taskProject = DataBase.returnProject(_currentSection.textContent);
     let taskItem = Task.returnTask(taskName, taskProject);
-    const taskElement = e.target.parentElement.parentElement.parentElement;
-    const _modalTask = document.querySelector('#modal');
+    let taskElement = e.target.parentElement.parentElement.parentElement;
+
+    const _editBtn = _createEditBtn();
     const _taskInputs = document.querySelectorAll('.task-input');
     const _saveBtn = document.querySelector('#submit-task');
+    _saveBtn.replaceWith(_editBtn);
+
     _saveBtn.dataset.modify = 'true';
     _modalTask.style.display = 'block';
     _insertSelect.style.display = 'none';
     _taskInputs[0].value = taskItem.name;
     _taskInputs[1].value = taskItem.dueDate;
     _taskInputs[2].value = taskItem.note;
-    _saveBtn.addEventListener('click', () => {
-      if (_taskInputs[0].value.trim() !== '') {
+    _editBtn.addEventListener('click', () => {
+      if (_taskInputs[0].value !== '') {
         Task.modifyTaskElement(
           taskItem,
           _taskInputs[0].value.trim(),
@@ -315,6 +324,7 @@ const UserInterface = (function () {
         }
         taskElement.querySelector('.task-title').textContent = taskItem.name;
         taskElement.querySelector('.note-content').textContent = taskItem.note;
+        _editBtn.replaceWith(_saveBtn);
       }
     });
   }

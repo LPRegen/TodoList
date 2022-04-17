@@ -193,7 +193,7 @@ class Task {
     for (let i = 0; i < project.tasksContainer.length; i++) {
       if (taskName === project.tasksContainer[i].name) {
         taskItem = project.tasksContainer[i];
-        return;
+        break;
       }
     }
     return taskItem;

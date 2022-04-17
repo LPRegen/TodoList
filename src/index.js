@@ -1,6 +1,7 @@
 import './style.css';
 
 import { UserInterface, ProjectElements, TaskElements } from './elements.js';
+import { Task } from './storage';
 
 const Events = (function () {
   const _createProjectBtn = document.querySelector('.new-project');
@@ -45,24 +46,19 @@ const Events = (function () {
   });
 
   _saveTask.addEventListener('click', () => {
-    if (!_saveTask.dataset.modify) {
-      const inputs = document.querySelectorAll('.task-input');
-      const _parentProjectInput = document.querySelector('#all-projects');
-
-      // ! Change the order of parameters/arguments to use the spread operator.
-      TaskElements.checkInput(
-        inputs[0].value,
-        inputs[3].value,
-        inputs[1].value,
-        inputs[2].value,
-        UserInterface.checkRadioBtn()
-      );
-
-      inputs.forEach((input) => (input.value = ''));
-
-      _modalTask.style.display = 'none';
-      _parentProjectInput.remove();
-    }
+    const inputs = document.querySelectorAll('.task-input');
+    const _parentProjectInput = document.querySelector('#all-projects');
+    // ! Change the order of parameters/arguments to use the spread operator.
+    TaskElements.checkInput(
+      inputs[0].value,
+      inputs[3].value,
+      inputs[1].value,
+      inputs[2].value,
+      UserInterface.checkRadioBtn()
+    );
+    inputs.forEach((input) => (input.value = ''));
+    _modalTask.style.display = 'none';
+    _parentProjectInput.remove();
   });
 
   _taskItemsContainer.addEventListener('click', (e) => {
