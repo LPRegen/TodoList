@@ -11,7 +11,7 @@ const DataBase = (function () {
       tasksContainer: [],
     },
   ];
-  let _todayTasks = [];
+  // let _todayTasks = [];
   let projectList = [];
 
   function updateDB() {
@@ -77,6 +77,7 @@ const DataBase = (function () {
   }
 
   function todayTasks() {
+    let _todayTasks = [];
     const today = formatISO(new Date(), { representation: 'date' });
     _storage.forEach((project) => {
       project.tasksContainer.forEach((task) => {

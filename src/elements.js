@@ -177,6 +177,7 @@ const UserInterface = (function () {
   }
 
   function _todayGroup() {
+    _clearTaskContainer();
     DataBase.todayTasks().forEach((task) => {
       TaskElements.createTaskElement(
         task.name,
