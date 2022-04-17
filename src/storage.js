@@ -80,11 +80,7 @@ const DataBase = (function () {
     const today = formatISO(new Date(), { representation: 'date' });
     _storage.forEach((project) => {
       project.tasksContainer.forEach((task) => {
-        if (
-          task.dueDate == today &&
-          task.statusCompleted === false &&
-          !_todayTasks.includes(task)
-        ) {
+        if (task.dueDate == today && !_todayTasks.includes(task)) {
           _todayTasks.push(task);
         }
       });
