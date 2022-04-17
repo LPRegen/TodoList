@@ -12,6 +12,7 @@ const Events = (function () {
   const _sideBar = document.querySelector('#side-bar');
   const _taskItemsContainer = document.querySelector('#task-items');
   const _insertSelect = document.querySelector('#insert-select');
+  const inputs = document.querySelectorAll('.task-input');
 
   _sideBar.addEventListener('click', (e) => {
     UserInterface.selectSection(e);
@@ -26,6 +27,7 @@ const Events = (function () {
   });
 
   _addTaskBtn.addEventListener('click', function () {
+    inputs.forEach((input) => (input.value = ''));
     let taskName = document.querySelector('#task-name');
     _modalTask.style.display = 'block';
     _insertSelect.style.display = 'block';
@@ -34,11 +36,9 @@ const Events = (function () {
   });
 
   _cancelTask.addEventListener('click', () => {
-    const inputs = document.querySelectorAll('.task-input');
     const _selectElement = document.querySelector('#all-projects');
     _modalTask.style.display = 'none';
     if (_selectElement) _selectElement.remove();
-    inputs.forEach((input) => (input.value = ''));
     if (document.querySelector('#edit-task'))
       document.querySelector('#edit-task').replaceWith(_saveTask);
   });
@@ -54,7 +54,6 @@ const Events = (function () {
       inputs[2].value,
       UserInterface.checkRadioBtn()
     );
-    inputs.forEach((input) => (input.value = ''));
     _modalTask.style.display = 'none';
     _parentProjectInput.remove();
   });
