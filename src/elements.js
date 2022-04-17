@@ -135,7 +135,7 @@ const UserInterface = (function () {
   const _taskContainer = document.querySelector('#task-items');
   const _currentSection = document.querySelector('#section-name');
   const _insertSelect = document.querySelector('#insert-select');
-  const _displayGroups = [_todayGroup, _thisWeek, _projects];
+  const _displayGroups = [_todayGroup];
 
   (function _displayOnLoad() {
     DataBase.projectList.forEach((el) => {
@@ -182,14 +182,6 @@ const UserInterface = (function () {
         task.statusCompleted
       );
     });
-  }
-
-  function _thisWeek() {
-    console.log('This week');
-  }
-
-  function _projects() {
-    console.log('Proyects');
   }
 
   function _deleteClass(element) {
