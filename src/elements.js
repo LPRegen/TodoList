@@ -139,7 +139,7 @@ const UserInterface = (function () {
   const _taskContainer = document.querySelector('#task-items');
   const _currentSection = document.querySelector('#section-name');
   const _insertSelect = document.querySelector('#insert-select');
-  const _displayGroups = [_todayGroup];
+  const _displayGroups = [_todayGroup, _projectsGroup];
 
   (function _displayOnLoad() {
     DataBase.projectList.forEach((el) => {
@@ -170,7 +170,6 @@ const UserInterface = (function () {
         );
       });
     }
-    // ! Refactor
     if (e.target.dataset.group) {
       _displayGroups[e.target.dataset.group]();
     }
@@ -190,6 +189,52 @@ const UserInterface = (function () {
     });
   }
 
+  function _projectsGroup() {
+    DataBase.projectList.forEach((project) => {
+      const divContainer = document.createElement('div');
+      const projectContent = document.createElement('div');
+      const projectName = document.createElement('p');
+      const actionBtnsContainer = document.createElement('div');
+      const deleteBtn = document.createElement('span');
+      const modifyBtn = document.createElement('span');
+      const expandBtn = document.createElement('span');
+
+      projectContent.append(projectName);
+      divContainer.append(projectContent);
+      actionBtnsContainer.append(deleteBtn, modifyBtn, expandBtn);
+      projectContent.append(actionBtnsContainer);
+      _taskContainer.append(divContainer);
+
+      projectName.textContent = project;
+      deleteBtn.textContent = 'delete_sweep';
+      modifyBtn.textContent = 'edit';
+      expandBtn.textContent = 'expand_more';
+
+      divContainer.classList.add('task-item');
+      projectContent.classList.add('task-content');
+      projectName.classList.add('task-title');
+      actionBtnsContainer.classList.add('actions');
+      deleteBtn.classList.add(
+        'material-icons-outlined',
+        'delete-project',
+        'btn-delete',
+        'btn-action'
+      );
+      modifyBtn.classList.add(
+        'material-icons-outlined',
+        'edit-project',
+        'btn-edit',
+        'btn-action'
+      );
+      expandBtn.classList.add(
+        'material-icons-outlined',
+        'expand-project',
+        'btn-expand',
+        'btn-action'
+      );
+    });
+  }
+
   function _deleteClass(element) {
     element.forEach((html) => {
       html.classList.remove(`selected`);
@@ -205,7 +250,6 @@ const UserInterface = (function () {
     if (e.target.matches('.delete-btn')) {
       DataBase.removeProject(e.target.parentElement.childNodes[0].textContent);
       e.target.parentElement.remove();
-      _currentSection.textContent = 'Today';
       _displayGroups[0]();
     }
   }
@@ -356,6 +400,12 @@ const UserInterface = (function () {
         break;
       case 'btn-expand':
         _showTaskNote(e);
+        break;
+      case 'edit-project':
+B        break;
+      case 'expand-project':
+        break;
+      case 'delete-project':
         break;
     }
   }
