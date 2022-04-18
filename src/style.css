@@ -10,7 +10,7 @@
   --text-alt: rgb(0, 0, 0);
   --radius: 25px;
   --shadow: 4px 4px 5px rgba(0, 0, 0, 0.8);
-  --blackBorder: 1px solid black;
+  --border: 2px solid #637899;
   --sideBarBg: #637899;
   --taskContainerBg: #ddf2ff;
   --selectedItemBg: #ddf2ff;
@@ -67,7 +67,7 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 1rem;
+  height: 1.5rem;
   padding: 0 1rem;
 }
 
@@ -87,8 +87,10 @@ h2 {
 }
 
 .new-project {
+  text-shadow: var(--selectedItemBg);
   display: flex;
   gap: 10px;
+  align-items: center;
   justify-content: center;
   cursor: pointer;
   margin: 0 3rem 1rem 3rem;
@@ -114,6 +116,7 @@ h2 {
 }
 
 #top-container {
+  margin-top: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -126,13 +129,14 @@ h2 {
 }
 
 #new-task {
+  box-shadow: 2px 2px 2px #4c596e;
   height: 2rem;
   display: flex;
   gap: 10px;
   padding: 5px 20px;
   align-items: center;
   border-radius: var(--radius);
-  border: 1px solid black;
+  border: var(--border);
   cursor: pointer;
   background-color: transparent;
 }
@@ -150,9 +154,10 @@ h2 {
 }
 
 .task-content {
+  font-weight: bold;
   display: flex;
   justify-content: space-between;
-  border: 2px solid black;
+  border: var(--border);
   padding: 8px 20px;
   border-radius: var(--radius);
 }
@@ -181,12 +186,15 @@ h2 {
   display: none;
   margin: 0 3rem;
   padding: 0.5rem 2.5rem;
-  border: 1px black;
+  border: 1px #637899;
   border-style: none solid solid solid;
   border-radius: 0 0 15px 15px;
+
+  font-size: 0.9rem;
 }
 
 .creation-date {
+  font-weight: 500;
   text-align: right;
   font-style: italic;
 }
@@ -214,7 +222,8 @@ h2 {
 
 /* Completed task. */
 .completed-task {
-  opacity: 0.7;
+  font-weight: normal;
+  opacity: 0.5;
 }
 
 .completed-task:hover {
@@ -265,19 +274,28 @@ img {
   display: flex;
   flex-direction: column;
   gap: 3vh;
-  width: 50%;
+  width: 40%;
   height: fit-content;
   margin: 10vh auto auto auto;
   padding: 2rem;
   border-radius: var(--radius);
-  background-color: rgb(207, 95, 95);
+  background-color: var(--sideBarBg);
   box-shadow: 4px 4px 5px black;
 }
 
 .modal-container {
   display: flex;
   flex-direction: column;
-  gap: 0.5vh;
+  gap: 1.5vh;
+  font-weight: 600;
+}
+
+#all-projects,
+textarea,
+.modal-container > input {
+  padding: 0.2rem 0.3rem;
+  border-radius: 4px;
+  border-color: #ddf2ff;
 }
 
 .radio-btns {
@@ -285,14 +303,11 @@ img {
   flex-direction: row;
   justify-content: center;
   gap: 5%;
-}
-
-#task-name:invalid {
-  color: purple;
+  font-weight: 500;
 }
 
 #task-note {
-  height: 15vh;
+  height: 20vh;
   max-width: 100%;
   float: right;
   text-rendering: initial;
@@ -304,6 +319,7 @@ img {
 }
 
 .btn-container {
+  padding-top: 1rem;
   display: flex;
   gap: 20%;
   margin: auto;
