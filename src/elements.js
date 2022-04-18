@@ -110,11 +110,8 @@ class ProjectElements {
   static createHTMLList(name) {
     const container = document.createElement('div');
     const title = document.createElement('p');
-    const deleteIcon = document.createElement('span');
     container.classList.add('projects', 'section');
-    deleteIcon.classList.add('material-icons-outlined', 'delete-btn');
-    deleteIcon.textContent = 'delete_sweep';
-    container.append(title, deleteIcon);
+    container.append(title);
     title.textContent = name;
     ProjectElements.projectList.insertAdjacentElement('beforeend', container);
   }
@@ -140,6 +137,7 @@ const UserInterface = (function () {
   const _currentSection = document.querySelector('#section-name');
   const _insertSelect = document.querySelector('#insert-select');
   const _displayGroups = [_todayGroup, _projectsGroup];
+  const _sideBar = document.querySelector('#project-container');
 
   (function _displayOnLoad() {
     DataBase.projectList.forEach((el) => {
@@ -155,11 +153,7 @@ const UserInterface = (function () {
   function _displayProject(e) {
     _clearTaskContainer();
     let projectName = _currentSection.textContent;
-    if (
-      projectName !== 'Today' &&
-      projectName !== 'This week' &&
-      projectName !== 'Projects'
-    ) {
+    if (projectName !== 'Today' && projectName !== 'Projects') {
       DataBase.returnProject(projectName).tasksContainer.forEach((task) => {
         TaskElements.createTaskElement(
           task.name,
@@ -212,7 +206,7 @@ const UserInterface = (function () {
 
       divContainer.classList.add('task-item');
       projectContent.classList.add('task-content');
-      projectName.classList.add('task-title');
+      projectName.classList.add('project-section');
       actionBtnsContainer.classList.add('actions');
       deleteBtn.classList.add(
         'material-icons-outlined',
@@ -247,15 +241,22 @@ const UserInterface = (function () {
   }
 
   function removeProject(e) {
-    if (e.target.matches('.delete-btn')) {
-      DataBase.removeProject(e.target.parentElement.childNodes[0].textContent);
-      e.target.parentElement.remove();
-      _displayGroups[0]();
+    if (e.target.matches('.delete-project')) {
+      let projectName =
+        e.target.parentElement.parentElement.childNodes[0].textContent;
+      let elementToRemove = e.target.parentElement.parentElement.parentElement;
+      DataBase.removeProject(projectName);
+      elementToRemove.remove();
+      let projectList = _sideBar.querySelectorAll('.projects');
+      projectList.forEach((project) => {
+        if (project.firstChild.textContent === projectName) {
+          project.remove();
+        }
+      });
     }
   }
 
   function selectSection(e) {
-    const _sideBar = document.querySelector('#project-container');
     let allSections = document.querySelectorAll('.section');
     _deleteClass(allSections);
     if (e.target.nodeName !== 'SPAN') {
@@ -402,10 +403,11 @@ const UserInterface = (function () {
         _showTaskNote(e);
         break;
       case 'edit-project':
-B        break;
+        break;
       case 'expand-project':
         break;
       case 'delete-project':
+        removeProject(e);
         break;
     }
   }
