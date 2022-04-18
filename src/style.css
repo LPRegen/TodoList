@@ -104,6 +104,14 @@ h2 {
   margin: 0 auto 2rem auto;
 }
 
+/* ! */
+.project-section {
+  display: flex;
+  cursor: pointer;
+  font-weight: 600;
+  align-items: center;
+}
+
 /* ! Task container */
 #tasks-container {
   position: relative;
@@ -278,7 +286,7 @@ img {
   height: fit-content;
   margin: 10vh auto auto auto;
   padding: 2rem;
-  border-radius: var(--radius);
+  border-radius: 10px;
   background-color: var(--sideBarBg);
   box-shadow: 4px 4px 5px black;
 }
