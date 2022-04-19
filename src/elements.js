@@ -136,14 +136,14 @@ const UserInterface = (function () {
   const _taskContainer = document.querySelector('#task-items');
   const _currentSection = document.querySelector('#section-name');
   const _insertSelect = document.querySelector('#insert-select');
-  const _displayGroups = [_todayGroup, _projectsGroup];
+  const _displayGroups = [_todaySection, _projectsSection];
   const _sideBar = document.querySelector('#project-container');
 
   (function _displayOnLoad() {
     DataBase.projectList.forEach((el) => {
       ProjectElements.createHTMLList(el);
     });
-    _todayGroup();
+    _todaySection();
   })();
 
   function _clearTaskContainer() {
@@ -169,7 +169,7 @@ const UserInterface = (function () {
     }
   }
 
-  function _todayGroup() {
+  function _todaySection() {
     _currentSection.textContent = 'Today';
     _clearTaskContainer();
     DataBase.todayTasks().forEach((task) => {
@@ -183,7 +183,7 @@ const UserInterface = (function () {
     });
   }
 
-  function _projectsGroup() {
+  function _projectsSection() {
     DataBase.projectList.forEach((project) => {
       const divContainer = document.createElement('div');
       const projectContent = document.createElement('div');
@@ -258,8 +258,8 @@ const UserInterface = (function () {
 
   function selectSection(e) {
     let allSections = document.querySelectorAll('.section');
-    _deleteClass(allSections);
-    if (e.target.nodeName !== 'SPAN') {
+    if (e.target.nodeName !== 'SPAN' && e.target !== _sideBar) {
+      _deleteClass(allSections);
       if (e.target.classList.contains('section')) {
         e.target.classList.add('selected');
         _updateName(e);
@@ -268,8 +268,6 @@ const UserInterface = (function () {
         e.target.parentElement.classList.add('selected');
         _updateName(e);
         _displayProject(e);
-      } else if (e.target === _sideBar) {
-        _todayGroup();
       }
     }
   }
