@@ -79,6 +79,7 @@ h2 {
   border-radius: 10px 0px 0 10px;
   background-color: var(--selectedItemBg);
   font-weight: 800;
+  height: auto;
 }
 
 .delete-btn {
