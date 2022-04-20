@@ -124,6 +124,12 @@ class Project {
     DataBase.updateDB();
   }
 
+  static modifyName(project, newName) {
+    const projectIndex = DataBase.projectList.indexOf(project.name);
+    project.name = newName;
+    DataBase.projectList.splice(projectIndex, 1, project.name);
+  }
+
   static checkDuplicate(project, taskName) {
     let isDuplicated;
     project.tasksContainer.forEach((task) => {
