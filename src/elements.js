@@ -138,7 +138,6 @@ const UserInterface = (function () {
   const _insertSelect = document.querySelector('#insert-select');
   const _displayGroups = [_todaySection, _projectsSection];
   const _sideBar = document.querySelector('#project-container');
-  const _topBtnContainer = document.querySelector('#top-btn');
 
   (function _displayOnLoad() {
     DataBase.projectList.forEach((el) => {
@@ -150,22 +149,6 @@ const UserInterface = (function () {
   function _clearTaskContainer() {
     _taskContainer.textContent = '';
   }
-
-  function createTopContainerBtn(id, icon, textContent) {
-    const newButton = document.createElement('button');
-    const spanIcon = document.createElement('span');
-    const textBtn = document.createElement('p');
-    newButton.id = id;
-    spanIcon.classList.add('material-icons-outlined');
-    spanIcon.textContent = icon;
-    textBtn.textContent = textContent;
-    newButton.append(spanIcon, textBtn);
-    return newButton;
-  }
-
-  _topBtnContainer.replaceChildren(
-    createTopContainerBtn('new-task', 'add_task', 'New task')
-  );
 
   function _displayProject(e) {
     _clearTaskContainer();
@@ -285,19 +268,6 @@ const UserInterface = (function () {
         e.target.parentElement.classList.add('selected');
         _updateName(e);
         _displayProject(e);
-      }
-      if (e.target.textContent === 'Projects') {
-        _topBtnContainer.replaceChildren(
-          createTopContainerBtn(
-            'delete-projects',
-            'delete_forever',
-            'Delete all projects'
-          )
-        );
-      } else {
-        _topBtnContainer.replaceChildren(
-          createTopContainerBtn('new-task', 'add_task', 'New task')
-        );
       }
     }
   }

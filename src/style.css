@@ -135,7 +135,7 @@ h2 {
   letter-spacing: 2px;
 }
 
-#top-btn > * {
+#new-task {
   box-shadow: 2px 2px 2px #4c596e;
   height: 2rem;
   display: flex;
