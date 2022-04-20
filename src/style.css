@@ -104,10 +104,9 @@ h2 {
   margin: 0 auto 2rem auto;
 }
 
-/* ! */
+/* ! Projects section */
 .project-section {
   display: flex;
-  cursor: pointer;
   font-weight: 600;
   align-items: center;
 }
@@ -136,7 +135,7 @@ h2 {
   letter-spacing: 2px;
 }
 
-#new-task {
+#top-btn > * {
   box-shadow: 2px 2px 2px #4c596e;
   height: 2rem;
   display: flex;
