@@ -139,12 +139,14 @@ const UserInterface = (function () {
   const _displayGroups = [_todaySection, _projectsSection];
   const _sideBar = document.querySelector('#project-container');
 
-  (function _displayOnLoad() {
+  function _displayOnLoad() {
     DataBase.projectList.forEach((el) => {
       ProjectElements.createHTMLList(el);
     });
     _todaySection();
-  })();
+  }
+
+  _displayOnLoad();
 
   function _clearTaskContainer() {
     _taskContainer.textContent = '';
@@ -254,6 +256,32 @@ const UserInterface = (function () {
         }
       });
     }
+  }
+
+  function _editProject(e) {
+    let projectName = e.target.parentElement.parentElement.childNodes[0];
+    let textElement = e.target.parentElement.parentElement.firstChild;
+    const input = document.createElement('input');
+    input.value = projectName.textContent;
+    textElement.replaceWith(input);
+    input.focus();
+    input.onblur = () => {
+      if (
+        input.value !== projectName.textContent &&
+        input.value.trim() !== '' &&
+        !DataBase.isDuplicated(input.value.trim())
+      ) {
+        let project = DataBase.returnProject(projectName.textContent);
+        projectName.textContent = input.value.trim();
+        Project.modifyName(project, projectName.textContent);
+        DataBase.updateDB();
+        while (_sideBar.firstChild) {
+          _sideBar.removeChild(_sideBar.firstChild);
+        }
+        _displayOnLoad();
+      }
+      input.replaceWith(textElement);
+    };
   }
 
   function selectSection(e) {
@@ -401,6 +429,7 @@ const UserInterface = (function () {
         _showTaskNote(e);
         break;
       case 'edit-project':
+        _editProject(e);
         break;
       case 'expand-project':
         break;
