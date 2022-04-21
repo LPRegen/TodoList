@@ -171,6 +171,32 @@ const UserInterface = (function () {
     }
   }
 
+  function selectProject(e) {
+    if (e.target.classList.contains('project-title')) {
+      let allSections = document.querySelectorAll('.section');
+      let allProjects = document.querySelectorAll('.projects');
+      const selectedProject = e.target.textContent;
+      _clearTaskContainer();
+      _currentSection.textContent = selectedProject;
+      DataBase.returnProject(selectedProject).tasksContainer.forEach((task) => {
+        TaskElements.createTaskElement(
+          task.name,
+          task.note,
+          task.parentProject,
+          task.dueDate,
+          task.statusCompleted
+        );
+      });
+      _deleteClass(allSections);
+      allProjects.forEach((project) => {
+        if (project.textContent === selectedProject) {
+          console.log('s');
+          project.classList.add('selected');
+        }
+      });
+    }
+  }
+
   function _todaySection() {
     _currentSection.textContent = 'Today';
     _clearTaskContainer();
@@ -207,7 +233,7 @@ const UserInterface = (function () {
 
       divContainer.classList.add('task-item');
       projectContent.classList.add('task-content');
-      projectName.classList.add('project-section');
+      projectName.classList.add('project-title');
       actionBtnsContainer.classList.add('actions');
       deleteBtn.classList.add(
         'material-icons-outlined',
@@ -433,6 +459,7 @@ const UserInterface = (function () {
   }
 
   return {
+    selectProject,
     removeProject,
     selectSection,
     createSelectElement,

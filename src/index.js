@@ -60,5 +60,6 @@ const Events = (function () {
 
   _taskItemsContainer.addEventListener('click', (e) => {
     UserInterface.actionButtons(e);
+    UserInterface.selectProject(e);
   });
 })();

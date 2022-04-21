@@ -79,7 +79,6 @@ h2 {
   border-radius: 10px 0px 0 10px;
   background-color: var(--selectedItemBg);
   font-weight: 800;
-  height: auto;
 }
 
 .delete-btn {
@@ -94,7 +93,7 @@ h2 {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  margin: 0 3rem 1rem 3rem;
+  margin: 1rem 3rem 1rem 3rem;
 }
 
 #create-project {
@@ -106,10 +105,11 @@ h2 {
 }
 
 /* ! Projects section */
-.project-section {
+.project-title {
   display: flex;
   font-weight: 600;
   align-items: center;
+  cursor: pointer;
 }
 
 /* ! Task container */
