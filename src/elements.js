@@ -186,6 +186,7 @@ const UserInterface = (function () {
   }
 
   function _projectsSection() {
+    _currentSection.textContent = 'Projects';
     DataBase.projectList.forEach((project) => {
       const divContainer = document.createElement('div');
       const projectContent = document.createElement('div');
@@ -193,18 +194,16 @@ const UserInterface = (function () {
       const actionBtnsContainer = document.createElement('div');
       const deleteBtn = document.createElement('span');
       const modifyBtn = document.createElement('span');
-      const expandBtn = document.createElement('span');
 
       projectContent.append(projectName);
       divContainer.append(projectContent);
-      actionBtnsContainer.append(deleteBtn, modifyBtn, expandBtn);
+      actionBtnsContainer.append(deleteBtn, modifyBtn);
       projectContent.append(actionBtnsContainer);
       _taskContainer.append(divContainer);
 
       projectName.textContent = project;
       deleteBtn.textContent = 'delete_sweep';
       modifyBtn.textContent = 'edit';
-      expandBtn.textContent = 'expand_more';
 
       divContainer.classList.add('task-item');
       projectContent.classList.add('task-content');
@@ -220,12 +219,6 @@ const UserInterface = (function () {
         'material-icons-outlined',
         'edit-project',
         'btn-edit',
-        'btn-action'
-      );
-      expandBtn.classList.add(
-        'material-icons-outlined',
-        'expand-project',
-        'btn-expand',
         'btn-action'
       );
     });
@@ -281,6 +274,8 @@ const UserInterface = (function () {
         _displayOnLoad();
       }
       input.replaceWith(textElement);
+      _clearTaskContainer();
+      _projectsSection();
     };
   }
 
@@ -430,8 +425,6 @@ const UserInterface = (function () {
         break;
       case 'edit-project':
         _editProject(e);
-        break;
-      case 'expand-project':
         break;
       case 'delete-project':
         removeProject(e);
