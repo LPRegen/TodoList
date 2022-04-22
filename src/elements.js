@@ -1,6 +1,7 @@
 'use strict';
 
 import { DataBase, Project, Task } from './storage';
+import formatISO from 'date-fns/formatISO';
 
 class TaskElements {
   static completedTask = document.querySelector('#completed-tasks-list');
@@ -20,7 +21,7 @@ class TaskElements {
       dueDate,
       statusCompleted
     );
-
+    const _todayDate = formatISO(new Date(), { representation: 'date' });
     const taskItem = document.createElement('div');
     const taskContent = document.createElement('div');
     const taskTitle = document.createElement('p');
@@ -69,8 +70,26 @@ class TaskElements {
     noteContent.append(creationDate);
     taskContent.append(taskTitle, actionsContainer);
     taskItem.append(taskContent, noteContent);
-    this.taskContainer.append(taskItem);
 
+    const _currentSection = document.querySelector('#section-name');
+
+    if (_currentSection.textContent === 'Today') {
+      if (
+        newInstance.dueDate === _todayDate &&
+        newInstance.statusCompleted === true
+      ) {
+        this.taskContainer.insertAdjacentElement('beforeend', taskItem);
+      } else if (
+        newInstance.dueDate === _todayDate &&
+        newInstance.statusCompleted === false
+      ) {
+        this.taskContainer.insertAdjacentElement('afterbegin', taskItem);
+      }
+    } else {
+      newInstance.statusCompleted === true
+        ? this.taskContainer.insertAdjacentElement('beforeend', taskItem)
+        : this.taskContainer.insertAdjacentElement('afterbegin', taskItem);
+    }
     return newInstance;
   }
 
