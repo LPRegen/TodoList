@@ -124,10 +124,17 @@ class Project {
     DataBase.updateDB();
   }
 
+  static changeParent(project, newParent) {
+    project.tasksContainer.forEach((task) => {
+      task.parentProject = newParent;
+    });
+  }
+
   static modifyName(project, newName) {
     const projectIndex = DataBase.projectList.indexOf(project.name);
     project.name = newName;
     DataBase.projectList.splice(projectIndex, 1, project.name);
+    this.changeParent(project, newName);
   }
 
   static checkDuplicate(project, taskName) {

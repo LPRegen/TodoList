@@ -74,6 +74,7 @@ class TaskElements {
     const _currentSection = document.querySelector('#section-name');
 
     if (_currentSection.textContent === 'Today') {
+      actionsContainer.dataset.parent = newInstance.parentProject;
       if (
         newInstance.dueDate === _todayDate &&
         newInstance.statusCompleted === true
@@ -209,7 +210,6 @@ const UserInterface = (function () {
       _deleteClass(allSections);
       allProjects.forEach((project) => {
         if (project.textContent === selectedProject) {
-          console.log('s');
           project.classList.add('selected');
         }
       });
@@ -373,26 +373,46 @@ const UserInterface = (function () {
   }
 
   function _changeTaskStatus(e) {
-    // ! refactor
     let taskName =
       e.target.parentElement.parentElement.firstElementChild.textContent;
-    let taskProject = DataBase.returnProject(_currentSection.textContent);
-    let taskItem = Task.returnTask(taskName, taskProject);
-    Task.modifyStatus(taskItem);
-    if (taskItem.statusCompleted === true) {
-      e.target.parentElement.parentElement.classList.add('completed-task');
+    if (_currentSection.textContent !== 'Today') {
+      let taskProject = DataBase.returnProject(_currentSection.textContent);
+      let taskItem = Task.returnTask(taskName, taskProject);
+      Task.modifyStatus(taskItem);
+      if (taskItem.statusCompleted === true) {
+        e.target.parentElement.parentElement.classList.add('completed-task');
+      } else {
+        e.target.parentElement.parentElement.classList.remove('completed-task');
+      }
     } else {
-      e.target.parentElement.parentElement.classList.remove('completed-task');
+      let parentDataset = e.target.parentElement.dataset.parent;
+      let project = DataBase.returnProject(parentDataset);
+      let taskDatabase = Task.returnTask(taskName, project);
+      Task.modifyStatus(taskDatabase);
+      if (taskDatabase.statusCompleted === true) {
+        e.target.parentElement.parentElement.classList.add('completed-task');
+      } else {
+        e.target.parentElement.parentElement.classList.remove('completed-task');
+      }
     }
   }
 
   function _deleteTask(e) {
     let taskName =
       e.target.parentElement.parentElement.firstElementChild.textContent;
-    let taskProject = DataBase.returnProject(_currentSection.textContent);
-    let taskItem = Task.returnTask(taskName, taskProject);
-    Project.deleteTask(taskProject, taskItem);
-    e.target.parentElement.parentElement.parentElement.remove();
+    if (_currentSection.textContent !== 'Today') {
+      let taskProject = DataBase.returnProject(_currentSection.textContent);
+      let taskItem = Task.returnTask(taskName, taskProject);
+      Project.deleteTask(taskProject, taskItem);
+      e.target.parentElement.parentElement.parentElement.remove();
+    } else {
+      let parentDataset = e.target.parentElement.dataset.parent;
+      let project = DataBase.returnProject(parentDataset);
+      let taskDatabase = Task.returnTask(taskName, project);
+      Project.deleteTask(project, taskDatabase);
+      e.target.parentElement.parentElement.parentElement.remove();
+      y;
+    }
   }
 
   function _createEditBtn() {
