@@ -21,6 +21,7 @@ class TaskElements {
       dueDate,
       statusCompleted
     );
+    const _currentSection = document.querySelector('#section-name');
     const _todayDate = formatISO(new Date(), { representation: 'date' });
     const taskItem = document.createElement('div');
     const taskContent = document.createElement('div');
@@ -30,7 +31,6 @@ class TaskElements {
     const creationDate = document.createElement('p');
     const checkBtn = document.createElement('span');
     const deleteBtn = document.createElement('span');
-    const editBtn = document.createElement('span');
     const expandMoreBtn = document.createElement('span');
 
     taskTitle.textContent = name;
@@ -38,7 +38,6 @@ class TaskElements {
     taskTitle.classList.add('task-title');
     checkBtn.textContent = 'done';
     deleteBtn.textContent = 'delete_sweep';
-    editBtn.textContent = 'edit';
     expandMoreBtn.textContent = 'expand_more';
     creationDate.textContent = `Creation date: ${newInstance.creationDate}`;
 
@@ -64,14 +63,22 @@ class TaskElements {
       'btn-delete',
       'btn-action'
     );
-    editBtn.classList.add('material-icons-outlined', 'btn-edit', 'btn-action');
 
-    actionsContainer.append(checkBtn, deleteBtn, editBtn, expandMoreBtn);
+    if (_currentSection.textContent !== 'Today') {
+      const editBtn = document.createElement('span');
+      editBtn.textContent = 'edit';
+      editBtn.classList.add(
+        'material-icons-outlined',
+        'btn-edit',
+        'btn-action'
+      );
+      actionsContainer.append(checkBtn, deleteBtn, editBtn, expandMoreBtn);
+    }
+
+    actionsContainer.append(checkBtn, deleteBtn, expandMoreBtn);
     noteContent.append(creationDate);
     taskContent.append(taskTitle, actionsContainer);
     taskItem.append(taskContent, noteContent);
-
-    const _currentSection = document.querySelector('#section-name');
 
     if (_currentSection.textContent === 'Today') {
       actionsContainer.dataset.parent = newInstance.parentProject;
@@ -411,7 +418,6 @@ const UserInterface = (function () {
       let taskDatabase = Task.returnTask(taskName, project);
       Project.deleteTask(project, taskDatabase);
       e.target.parentElement.parentElement.parentElement.remove();
-      y;
     }
   }
 
