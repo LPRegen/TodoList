@@ -4,11 +4,61 @@ import parseISO from 'date-fns/parseISO';
 import { formatISO, differenceInDays } from 'date-fns';
 
 const DataBase = (function () {
+  let creationDate = formatISO(new Date(), { representation: 'date' });
   let _storage = [
     {
       name: 'Uncategorized',
-      creationDate: `${new Date()}`,
-      tasksContainer: [],
+      creationDate: creationDate,
+      tasksContainer: [
+        {
+          creationDate: creationDate,
+          name: 'Interact with tasks',
+          note: `
+          When a project is being displayed, you can check the task as complete or uncheck it, delete, modify and display the note and information about the selected task.`,
+          parentProject: 'Uncategorized',
+          statusCompleted: false,
+          dueDate: creationDate,
+        },
+        {
+          creationDate: creationDate,
+          name: 'Create a new task',
+          note: `
+          If you want to create a new task, you will have to click in the button on the top right corner, then you will have to complete the modal window with the related information.
+          Only the name is mandatory and it cannot be duplicated, same as Projects.`,
+          parentProject: 'Uncategorized',
+          statusCompleted: false,
+          dueDate: creationDate,
+        },
+        {
+          creationDate: creationDate,
+          name: 'Create a new project',
+          note: `
+          To create a new Project, you will have to click the button "New Project" and type a name for it. After the Project has been created, you can select it from the left side bar just clicking on it. Like tasks, is not possible to have two Projects with the same name.`,
+          parentProject: 'Uncategorized',
+          statusCompleted: false,
+          dueDate: creationDate,
+        },
+        {
+          creationDate: creationDate,
+          name: 'Projects section explained',
+          note: `
+          In this section, you will be able to delete and modify project's name`,
+          parentProject: 'Uncategorized',
+          statusCompleted: false,
+          dueDate: creationDate,
+        },
+        {
+          creationDate: creationDate,
+          name: 'Today section explained',
+          note: `
+          Here you will find all the tasks with today as due date.
+          Also below the note, you will find the due date and creation date for this specific task
+          With the icons in your right, you will be able to check, delete and display the note and the information related to the task.`,
+          parentProject: 'Uncategorized',
+          statusCompleted: false,
+          dueDate: creationDate,
+        },
+      ],
     },
   ];
   let projectList = [];
