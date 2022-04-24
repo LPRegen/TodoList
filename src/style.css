@@ -170,10 +170,11 @@ h2 {
   border-radius: var(--radius);
 }
 
-.drag {
-  cursor: grab;
+.today-task {
+  cursor: pointer;
 }
 
+.today-task,
 .task-title {
   display: flex;
   gap: 10px;

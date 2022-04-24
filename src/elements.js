@@ -46,7 +46,9 @@ class TaskElements {
     taskItem.classList.add('task-item');
     taskContent.classList.add('task-content');
     if (statusCompleted === true) taskContent.classList.add('completed-task');
-    taskTitle.classList.add('task-title');
+    _currentSection.textContent !== 'Today'
+      ? taskTitle.classList.add('task-title')
+      : taskTitle.classList.add('today-task');
     actionsContainer.classList.add('actions');
     noteContent.classList.add('note-content');
     infoContainer.classList.add('info-container');
@@ -204,27 +206,59 @@ const UserInterface = (function () {
   }
 
   function selectProject(e) {
-    if (e.target.classList.contains('project-title')) {
+    if (
+      _currentSection.textContent === 'Today' ||
+      _currentSection.textContent === 'Projects'
+    ) {
       let allSections = document.querySelectorAll('.section');
       let allProjects = document.querySelectorAll('.projects');
-      const selectedProject = e.target.textContent;
-      _clearTaskContainer();
-      _currentSection.textContent = selectedProject;
-      DataBase.returnProject(selectedProject).tasksContainer.forEach((task) => {
-        TaskElements.createTaskElement(
-          task.name,
-          task.note,
-          task.parentProject,
-          task.dueDate,
-          task.statusCompleted
+      let selectedProject;
+
+      if (e.target.classList.contains('project-title')) {
+        _clearTaskContainer();
+        selectedProject = e.target.textContent;
+        _currentSection.textContent = selectedProject;
+        DataBase.returnProject(selectedProject).tasksContainer.forEach(
+          (task) => {
+            TaskElements.createTaskElement(
+              task.name,
+              task.note,
+              task.parentProject,
+              task.dueDate,
+              task.statusCompleted
+            );
+          }
         );
-      });
-      _deleteClass(allSections);
-      allProjects.forEach((project) => {
-        if (project.textContent === selectedProject) {
-          project.classList.add('selected');
-        }
-      });
+        _deleteClass(allSections);
+        allProjects.forEach((project) => {
+          if (project.textContent === selectedProject) {
+            project.classList.add('selected');
+          }
+        });
+      } else if (e.target.classList.contains('today-task')) {
+        _clearTaskContainer();
+        const taskName = e.target.nextElementSibling;
+        selectedProject = taskName.dataset.parent;
+
+        DataBase.returnProject(selectedProject).tasksContainer.forEach(
+          (task) => {
+            TaskElements.createTaskElement(
+              task.name,
+              task.note,
+              task.parentProject,
+              task.dueDate,
+              task.statusCompleted
+            );
+          }
+        );
+        _deleteClass(allSections);
+        allProjects.forEach((project) => {
+          if (project.textContent === selectedProject) {
+            project.classList.add('selected');
+          }
+        });
+        _currentSection.textContent = selectedProject;
+      }
     }
   }
 
@@ -511,6 +545,7 @@ const UserInterface = (function () {
   return {
     selectProject,
     removeProject,
+    // goToProject,
     selectSection,
     createSelectElement,
     checkRadioBtn,
