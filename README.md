@@ -57,7 +57,7 @@
 
   <br />
 
-[![Product Name Screen Shot][product-screenshot]](https://github.com/LPRegen/TodoList/blob/main/src/images/todaySection.png?raw=true)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/LPRegen/TodoList/blob/main/src/images/todaySection.png)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
