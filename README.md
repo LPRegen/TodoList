@@ -74,6 +74,7 @@
 
 ## Features
 
+- [ ] Apply MVC design pattern.
 - [ ] Responsive design.
 - [ ] CSS Animations.
 - [ ] Create subprojects.
