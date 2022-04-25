@@ -97,7 +97,7 @@ Manuel Escribano - [LinkedIn](https://www.linkedin.com/in/manuel-escribano-lpreg
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/manuel-escribano-lpregen/
-[product-screenshot]: ./image/restaurant-home.png
+[product-screenshot]: ./src/images/todaySection.png
 [top-shield]: https://img.shields.io/badge/TOP-The%20Odin%20Project-orange?style=for-the-badge
 [top-url]: https://www.theodinproject.com/
 [js-shield]: https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E
