@@ -545,7 +545,6 @@ const UserInterface = (function () {
   return {
     selectProject,
     removeProject,
-    // goToProject,
     selectSection,
     createSelectElement,
     checkRadioBtn,
