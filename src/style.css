@@ -40,12 +40,6 @@ h2 {
   background-color: var(--sideBarBg);
 }
 
-.item-sidebar {
-  padding-left: 10%;
-  display: flex;
-  justify-content: space-between;
-}
-
 .sb-groups {
   padding: 0 1rem;
   margin-bottom: 1rem;
@@ -71,22 +65,13 @@ h2 {
   padding: 0 1rem;
 }
 
-.projects:hover .delete-btn {
-  display: inline-flex;
-}
-
 .selected {
   border-radius: 10px 0px 0 10px;
   background-color: var(--selectedItemBg);
   font-weight: 800;
 }
 
-.delete-btn {
-  cursor: pointer;
-  display: none;
-}
-
-.new-project {
+#new-project {
   text-shadow: var(--selectedItemBg);
   display: flex;
   gap: 10px;
@@ -94,14 +79,6 @@ h2 {
   justify-content: center;
   cursor: pointer;
   margin: 1rem 3rem 1rem 3rem;
-}
-
-#create-project {
-  font-size: clamp(1rem, -0.7rem + 5vw, 1.5rem);
-}
-
-#manage-projects {
-  margin: 0 auto 2rem auto;
 }
 
 /* ! Projects section */
@@ -198,15 +175,12 @@ h2 {
   border: 1px #637899;
   border-style: none solid solid solid;
   border-radius: 0 0 15px 15px;
-
   font-size: 0.9rem;
 }
 
 .info-container {
   display: flex;
   padding-top: 1rem;
-  /* flex-direction: column; */
-
   justify-content: space-around;
 }
 
@@ -218,6 +192,7 @@ h2 {
 }
 
 .displayed-note {
+  width: 85%;
   display: block;
 }
 
@@ -258,20 +233,6 @@ h2 {
 
 .hide {
   display: none;
-}
-
-/* Github */
-#github {
-  position: absolute;
-  bottom: 20px;
-  right: 40px;
-  display: flex;
-  justify-content: end;
-}
-
-img {
-  width: 25px;
-  height: 25px;
 }
 
 /* Modal window. */
